@@ -11,7 +11,7 @@ rm(list = ls()) #limpiar area de trabajo
 options(scipen = 999) #desactivar notacion cientifica
 
 # 3. Base de Datos # ----
-CASEN <- read_sav("C:/Users/Asus/Documents/GitHub/Practico-1/1. input/CASEN.sav")
+CASEN <- read_sav("C:/Users/Asus/Desktop/2024 Primer Semestre/Opt. Rstudios/Practico 1/CASEN.sav")
 dim(CASEN)
 View(CASEN)
 names(CASEN)
@@ -197,4 +197,4 @@ graph8
 ggsave(graph8, file="3. output/graph8.png")
 
 # 7. Guardar # ----
-save(proc_base,file = "C:/Users/Asus/Documents/GitHub/Practico-1/2. proc")
+save(proc_base,file = "1. input/CASEN_record.rdata")
