@@ -1,0 +1,362 @@
+---
+title: "Trabajo1"
+format:
+  html:
+    theme:
+      dark: darkly
+engine: knitr 
+editor: visual
+bibliography: Universidad.bib
+link-citations: true
+---
+
+```{css, echo = FALSE}
+.justify {
+  text-align: justify !important
+}
+```
+
+# La implicancia del nivel educativo, sexo y edad en la percepción de la Cohesión Social en el Chile del 2016
+
+Por: Benjamin Lorenzi
+
+Sociología
+
+Universidad Alberto Hurtado
+
+2024
+
+## Introduccion
+
+::: justify
+La cohesión social es un concepto fundamental en sociología, que se refiere a la unidad y solidaridad de un grupo o sociedad. O en palabras de @carlosmaldonadovaleraInclusionCohesionSocial2020: "La cohesión social es la capacidad de una sociedad de asegurar el bienestar para todos sus miembros, minimizando las disparidades y evitando la polarización." Consejo Europeo (2004)". La cohesion social refiere en este sentido a la capacidad de una sociedad de mantenerse unida y funcionar de manera efectiva.
+
+En el contexto de la sociología, la cohesion social se ha conceptualizado como un proceso complejo que involucra diversos factores, incluyendo lazos sociales, la confianza, valores compartidos y el sentido de pertenencia tal como lo plantea @moras.CohesionSocialBalance2015a :
+
+"(...) se propone la existencia de cuatro factores interdependientes en dicho nodo: la existencia de vinculos sociales entre los miembros de una sociedad (*lazo social*); la disposicion de los individuos que conforman dicha sociedad a recrear, por medio de sus relaciones sociales, la estructura de vinculos sociales (*confianza*); la presencia de un conjunto de creencias y valores compartidos que orientan a las personas a tener comportamientos de sociabilidad que favorecen el reconocimiento de los otros y el desarrollo de acciones encaminadas a la busqueda del bienestar común (*valores compartidos*); por ultimo, la posibilidad que tienen los individuos de reconocerse a si mismos como parte de la sociedad y, en consecuencia, esperar reconocimiento social por parte de otros miembros y de las instituciones sociales que regulan la vida social (*sentido de pertenencia*)" (p. 117)
+
+En este sentido se consideran muchas variables para hablar de cohesión social. Sin embargo, según ciertos resulados arrojados por @ernestoottoneCohesionSocialInclusion2007, nos encontramos con otras variables que juegan un rol fundamental en la cohesión social. Los autores plantean que al mejorar el nivel educativo la discriminación y la intolerancia en la población disminuye de manera significativa. Por lo tanto para los efectos de este analisis de la cohesión social en Chile será necesario incluir la variable de nivel educacional.
+
+Por otro lado, la cohesión social tambien se verá afectada por el apoyo ciudadano que se le da a las instituciones gubernamentales. Sobre esto, desde la CEPAL, @juancarlosferesHaciaNucleoIndicadores2010, a traves de una revision de conceptos e indicadores, manifestó que el apoyo a la democracia y la confianza en las instituciones se vuelven factores claves al momento de analizar la cohesión social. Esto debido que instalar estos temas en las agendas publicas proporcionarían inclusión, sentido de pertenencia y respeto por la diversidad en las sociedades. Por esta misma razon contemplamos de igual forma estas variables para llevar a cabo dicho analisis de la cohesión social.
+
+Otro factor que es importante para considerar en el analisis de la cohesion social es el genero. Para autoras como @anapaolaaldretegonzalesGeneroCohesionSocial2012, se vuelve importante considerar el factor del genero en el analisis de la cohesion social, dado que si bien este concepto refiere al grado de integracion de los individuos, no podemos edjar de lado el factor genero y de que manera podría variar eso, particularmente en como se siente una gran parte de la población. Contemplar el sexo y el genero se vuelve importante en la medida que la cohesión social puede ser evaluada desde esa variable, y que al mismo tiempo puede variar en función del sexo y el genero.
+
+Por ultimo no podemos dejar de lado un factor fundamental para la cohesión social, la edad. Esto se menciona muy por encima pero toma una vital importancia dentro del constructo de la cohesión social. Tal como lo menciona @valeraCohesionSocialDesarrollo
+
+"(...) la CEPAL ha alertado de la persistencia de una matriz de la desigualdad social en America Latinca, la cual si bien se asienta en esta estructura productiva, incluye un conjunto de ejes estructurantes que se encadenan, entrecruzan y potencian entre sí, contribuyendo a la reproducción de las desigualdades en diversos ambitos del ejercicio de derechos y que incluyen, ademas del nivel socio económico, el genero, la etnia y la raza, el ciclo de vida y el territorio. (CEPAL, 2016s)"
+
+En este sentido se vuelve de suma importancia variables tanto de genero como de la edad para la cohesión social, ya que a partir de ellas podemos determinar que rol juegan dentro de la inclusión social y como se ven afectadas en el sentido de pertenencia y las desigualdades dentro de la socieda.
+
+En este contexto, el presente estudio tiene como objetivo analizar la relacion entre la cohesion social y el nivel educativo y las caracteristicas demograficas de los encuestados a partir de un analisis estadistico en R Studio con la base de datos del Estudio Longitudinal Social de Chile (Ola 1 2016), tomando como hipotesis central que la cohesión social varía según el nivel educacional y/o sexo, edad de los encuestados. La presente investigación utilizará el software estadístico R Studio para analizar la relación entre la cohesión social y las variables educativas y demográficas antes mencionadas. Se utilizarán técnicas estadísticas avanzadas, como regresión lineal y análisis de varianza, para examinar la relación entre estas variables y la cohesión social.La presente investigación se enmarca en el campo de la sociología, y en particular en el subcampo de la sociología de la cohesión social. La investigación se basará en la teoría sociológica y en la literatura empírica relevante sobre la cohesión social y las variables educativas y demográficas. Se utilizará una metodología cuantitativa, con un enfoque en el análisis de datos estadísticos.La presente investigación tiene implicaciones importantes para la comprensión de la cohesión social y su relación con las variables educativas y demográficas. Los resultados de la investigación pueden proporcionar información valiosa para los formuladores de políticas y los líderes comunitarios, quienes pueden utilizar esta información para desarrollar programas y políticas que fomenten la cohesión.
+
+#### Conceptos Claves: Desigualdad Social, Cohesión Social, Políticas educativas.
+:::
+
+## Analisis Descriptivo
+
+### Cargar paquetes
+
+```{r}
+pacman::p_load(sjlabelled,
+               dplyr, #Manipulacion de datos
+              stargazer, #Tablas
+              sjmisc, # Tablas
+              summarytools, # Tablas
+              kableExtra, #Tablas
+              sjPlot, #Tablas y gráficos
+              corrplot, # Correlaciones
+              sessioninfo, # Información de la sesión de trabajo
+              ggplot2) # Para la mayoría de los gráficos
+```
+
+### Cargar base de datos
+
+```{r}
+load(url("https://github.com/Lorenzi666/R-Studio-UAH/raw/main/input/ELSOC%202016/Datasets/ELSOC_W01_v4.01_R"))
+load(url("https://github.com/Lorenzi666/R-Studio-UAH/raw/main/input/ELSOC%202016/Datasets/ELSOC_W01_v4.01_R.RData"))
+```
+
+```{r}
+View(elsoc_2016)
+dim(elsoc_2016)
+names(elsoc_2016)
+```
+
+### Analisis descriptivo
+
+::: justify
+Como podemos ver, la base de datos proporciona muchisimas variables de analisis estadistico. Para los efectos del estudio de la cohesion social, será necesario agrupar determinadas variables y crear una nueva base de datos con nuestras variables de interés. El Estudio Longitudinal Social de Chile (Ola1 2016) proporciona diversas variables que permiten dar cuenta tanto de la confianza interpersonal, de la participación civica y comunitaria, la percepción de pertenencia social, la tolerancia a la diversida, y la seguridad. En este sentido, estas categorías serían capaces de explicar como una sociedad mantiene el bienestar para todos los miembros minimizando las disparidades y evitando la polarización, tal como lo menciona @carlosmaldonadovaleraInclusionCohesionSocial2020. En función de lo anterior, se plantea como hipotesis que la cohesión social varía según el nivel educacional y/o sexo, edad de los encuestados. Las variables a utilizar serán -además de las mencionadas- la confianza entre vecinos, la integracion en el barrio, la seguridad en el barrio, la conectividad, la evaluación del barrio, el grado de contacto positivo con migrantes peruanos, la satisfacción con la democracia, y finalmente la confianza en el gobierno.
+:::
+
+```{r}
+#Selección de variables
+
+proc_base <- elsoc_2016 %>% select(m01, #Nivel educacional
+                                   m0_sexo, #Sexo
+                                   m0_edad, #Edad
+                                   t01, #Confianza en vecinos
+                                   t02_02, #Integracion en el barrio
+                                   t06_01, #Seguridad en el barrio
+                                   t06_02, #Conectividad
+                                   t08, #Evaluacion del barrio
+                                   r07, #Contacto positivo con migrantes peruanos
+                                   c01, #Satisfaccion con la democracia
+                                   c05_01) #Confianza en el gobierno
+
+proc_base <- na.omit(proc_base) #Borrar datos perdidos
+```
+
+::: justify
+Ya teniendo esta base de datos procesada verificamos que haya sido realizado con exito
+:::
+
+```{r}
+dim(proc_base)
+names(proc_base)
+```
+
+::: justify
+A continuación crearemos la variable de cohesión social, para ello, veremos de que tipo de variables se componen estas mismas:
+:::
+
+```{r}
+summarytools::dfSummary(proc_base, plain.ascii = FALSE)
+view(dfSummary(proc_base, headings=FALSE))
+```
+
+::: justify
+Tal como podemos ver todas las variables -a salvo de las variables de nivel educativo sexo y edad- Tienen valores que van desde el 1 al 5.  Esto quiere decir que nos encontramos con variables de tipo ordinales, es decir variables que que usan números para ordenarse en series a modo de ranking. A partir de los datos podemos ver que la mayor frecuencia de respuesta se encuentra entre los valores 3 y 4 concentrándose valores desde 10% hasta 61%. Lo cual quiere decir que para los efectos de estas variables nos encontramos con una valoración positiva respecto a la confianza, integración, seguridad y evaluación de las comunidades sociales. Sin embargo, hay 2 variables donde estos resultados difieren y son principalmente en las variables de satisfacción con la democracia y confianza en el gobierno. En estas últimas dos, la mayor frecuencia de resultados se concentra entre las categorías de respuesta 1, 2 y 3, lo cual quiere decir que existe muy poca confianza en el gobierno. Ya que según el manual de variables del estudio longitudinal social de Chile la categoría de respuesta 1 corresponde a muy poco. Esto quiere decir que para los efectos de la satisfacción de la democracia y de la confianza en el gobierno, un 42,1% y un 47,8% de la muestra confía muy poco o casi nada en el gobierno y/o no está satisfecha con la democracia.
+
+Para los efectos de la creación de una variable de Cohesión Social lo que haremos es tomar las siguientes variables para construir un indice compuesto : Confianza en vecinos; Integracion en el barrio; Seguridad en el barrio; Conectividad; Evaluacion del barrio; Contacto positivo con migrantes peruanos; Satisfaccion con la democracia; Confianza en el gobierno. Tal como menciona la tabla, las categorías de respuestas están fijadas de 1 a 5, y según el libro de codigos del cuestionario esto quiere decir que las categorías de respuesta van de menor a mayo, es decir, desde muy en desacuerdo a muy de acuerdo, o tambien un grado de confianza desde lo bajo hasta lo alto, siendo 1 lo mas bajo y 5 lo mayor. Lo que buscamos al crear este indice compuesto, es agrupar todos esos elementos que dan cuenta de una cohesión social para así analizarlo en un conjunto y ver en función de esta escala si la cohesión social es baja o alta.
+:::
+
+#### Cohesión Social
+
+```{r}
+proc_base$cohesion_social <- rowMeans(select(proc_base, 
+                                              starts_with("t01"),
+                                              starts_with("t02_02"),
+                                              starts_with("t06_01"),
+                                              starts_with("t06_02"),
+                                              starts_with("t08"),
+                                              starts_with("r07"),
+                                              starts_with("c01"),
+                                              starts_with("c05_01")))
+```
+
+Revisamos:
+
+```{r}
+sjlabelled::get_label(proc_base)
+frq(proc_base$cohesion_social)
+```
+
+::: justify
+Nos encontramos por un lado que la variable no cuenta con etiquetas, y que aún posee los datos perdidos que están denominados con los valores -999 y -888. Para ello vamos a recodificar los valores negativos como datos perdidos, y etiquetar los valores de la cohesión social:
+:::
+
+```{r}
+# Recodificar valores negativos como NA
+proc_base$cohesion_social <- ifelse(proc_base$cohesion_social < 0, NA, proc_base$cohesion_social)
+
+# Etiquetar los valores de la variable cohesion_social
+summary(proc_base$cohesion_social)
+
+proc_base$cohesion_social <- set_labels(proc_base$cohesion_social,
+                                        labels=c( "Muy poca"=1,
+                                                  "Poca"=2,
+                                                  "Algo"=3,
+                                                  "Bastante"=4,
+                                                  "Mucha"=5))
+frq(proc_base$cohesion_social)
+```
+
+::: justify
+A pesar de haber etiquetado los valores de la variables, no quedan definidos los limites de los intervalos y las etiquetas correspondientes
+:::
+
+```{r}
+# Definir los límites de los intervalos y las etiquetas correspondientes
+intervalos <- c(-Inf, 1, 2, 3, 4, Inf)
+etiquetas <- c("Muy poca", "Poca", "Algo", "Bastante", "Mucha")
+
+proc_base$cohesion_social <- cut(proc_base$cohesion_social, breaks = intervalos, labels = etiquetas, include.lowest = TRUE)
+
+frq(proc_base$cohesion_social)
+
+sjmisc::descr(proc_base,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+      kable(.,"markdown")
+```
+
+::: justify
+De esta forma, y según estos valores y variables, los datos demuestran que tan solo un 4.01% de la muestra manifiesta que existe poca cohesión social. Mientras que un total de 94.14% de la muestra considera que si existe bastante o algo de cohesión social. Junto con esto, la media de Cohesión Social es de 3.5. Es decir, un 94.14% cree que la sociedad mantiene el bienestar para todos los miembros evitando la polarización y minimizando las disparidades.
+
+Si esto lo llevamos a un grafico se vería de la siguiente manera:
+:::
+
+```{r}
+# Crear el gráfico usando ggplot2
+graphx1 <- proc_base %>% ggplot(aes(x = cohesion_social)) + 
+  geom_bar(fill = "coral")+
+  labs(title = "Cohesion Social",
+       x = "Cohesion Social",
+       y = "Frecuencia") +
+  theme_bw()
+
+graphx1
+
+#Guardar
+ggsave(graphx1, file="files/img/graph1.png")
+```
+
+::: justify
+En función de lo que demuestra el gráfico nos encontramos con que más de 600 personas demuestran que existe bastante de cohesión social respecto a las respuestas que dieron en el cuestionario de ElSOC (2016). Por otro lado, nos encontramos con que un poco menos de 600 personas creen que existe algo de cohesión social. En este sentido nos encontramos con que para el año 2016 existía una alta percepción de la cohesión social en la población chilena. Ahora bien, en función de lo planteado en la introducción, veamos de qué manera varía la percepción de la cohesión social en función del nivel educacional, el sexo y/o edad. Para ello será necesario etiquetar dichas variables y realizar tablas de análisis.
+:::
+
+#### Etiquetar variables
+
+```{r}
+#Etiquetar
+proc_base <- proc_base %>% rename("N_ed"=m01, # Nivel Educacional
+                                  "Sexo"=m0_sexo, # Sexo
+                                  "Edad"=m0_edad) # Edad
+
+proc_base$N_ed <- set_label(x = proc_base$N_ed,label = "Nivel Educacional")
+get_label(proc_base$N_ed)
+proc_base$Sexo <- set_label(x = proc_base$Sexo,label = "Sexo")
+get_label(proc_base$Sexo)
+proc_base$Edad <- set_label(x = proc_base$Edad,label = "Edad")
+get_label(proc_base$Edad)
+proc_base$cohesion_social <- set_label(x = proc_base$cohesion_social,label = "Cohesion Social")
+get_label(proc_base$cohesion_social)
+```
+
+#### Nivel educacional
+
+```{r}
+frq(proc_base$N_ed)
+```
+
+::: justify
+La tabla arroja resultados con datos no codificados ni procesados para ello etiquetaremos los niveles educativos de la siguiente forma:
+:::
+
+```{r}
+proc_base$N_ed <- car::recode(proc_base$N_ed, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+frq(proc_base$N_ed)
+```
+
+::: justify
+1 corresponderá a Educación Basica, 2 a Educación Media y 3 a Educación Superior:
+:::
+
+```{r}
+proc_base$N_ed <- factor(proc_base$N_ed,
+                             labels = c("Educacion basica", "Educacion media", "Educacion superior"),
+                             levels = c(1, 2, 3))
+frq(proc_base$N_ed)
+```
+
+::: justify
+De esta forma, nos daremos cuenta de que tan solo un 14.88% de la muestra ha alcanzado como maximo nivel educativo la educación basica, mientras que un 42.15% posee Educación Media. Y finalmente un 42.90% ha alcanzado la Educación Superior. Ahora bien, ¿como relacionamos esto con la cohesión social? ¿Como varía la Cohesión social en función del nivel educativo?
+:::
+
+```{r}
+proc_base <- rename(proc_base,"educacion"=N_ed) #Cambiamos nombre a la variable
+
+sjt.xtab(proc_base$cohesion_social, proc_base$educacion,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8"
+)
+```
+
+::: justify
+En función de lo planteado por @ernestoottoneCohesionSocialInclusion2007, ¿de qué manera se vería afectada o involucra la educación en la cohesión social? Tal como se mencionó en la introducción el autor planteaba de que al mejorar el nivel educativo la discriminación y la intolerancia de la evolución disminuye considerablemente, y por consecuencia en función de lo que estamos estudiando, es decir, la cohesión social, aumentaría. Veamos cómo se contrastan estos resultados respecto a lo que mantiene el autor
+
+Frente a estos datos nos encontramos que un 53.7% de la muestra que tiene estudios de educacióin superior que cree que existe bastante cohesión social. Similar ocurre con las personas que han alcanzado la educación media, un 48.7% de este segmento cree que existe algo de cohesión social. El dato más bajo respecto a la poca o muy poca percepción de cohesión social la encontramos en todas las educaciones con porcentajes que fluctúan entre 2.6% y 5.3%, es decir, el porcentaje de gente que cree que existe poca cohesión social es muy poca. A pesar de lo que nos muestra el grafico, pareciera ser que el nivel educativo no influye mucho en la percepción de cohesión social en el país. A pesar de todo los porcentajes condicen mucho en cada segmento de cohesión social y nivel educativo. Es decir, independiente del nivel educacional de la población, existe un alto grado de cohesión social en la población. La cohesión social en este caso, parece ir más allá del ambito educativo.
+
+Veamos ahora que nos dice el sexo sobre la variación de la cohesion social
+:::
+
+```{r}
+#Etiquetamos
+frq(proc_base$Sexo)
+proc_base$Sexo <- car::recode(proc_base$Sexo, "1=0;2=1")
+proc_base$Sexo <- factor(proc_base$Sexo,
+                         labels=c( "Hombre",
+                                   "Mujer"),
+                         levels=c(0,1))
+get_label(proc_base$Sexo)
+proc_base$Sexo <- set_label(x = proc_base$Sexo,label = "Sexo")
+frq(proc_base$Sexo)
+```
+
+::: justify
+Ahora voy a en teniendo en cuenta que un 42,75% de la muestra son hombres y que el 57,25% restante son mujeres contrastemos estos resultados en función de lo mencionado por @anapaolaaldretegonzalesGeneroCohesionSocial2012, quien menciona que la cohesión social puede variar en función del sexo y el género del individuo, ya que las opresiones y desigualdades de género se vuelven importantes a la hora de hablar de como una sociedad se mantiene unida y si es que esto la fragmenta o no.
+:::
+
+```{r}
+graphx2 <- proc_base %>% ggplot(aes(x = cohesion_social, fill = Sexo)) + 
+  geom_bar() +
+  xlab("Cohesión social") +
+  ylab("Cantidad") + 
+  labs(fill="Sexo")+
+  scale_fill_discrete(labels = c('Hombre','Mujer'))
+
+graphx2
+```
+
+::: justify
+Desde este gráfico, podemos ver que sustantivamente las mujeres tienen una mayor percepción de cohesión social que los hombres. Ahora bien, no nos confundamos con este resultado dado que tal como se mencionó anteriormente la muestra se compone mayoritariamente por mujeres. Sin embargo, a partir de estos mismos datos podemos observar que la percepción de la cohesión social no se ve determinada o no se ve afectada por las diferencias de sexo y género. Por lo tanto, podemos decir que independiente del sexo y género del individuo la cohesión social se mantiene alta, en otras palabras, podemos decir que no se manifiestan variaciones en la percepción de cohesión social dependiendo del sexo y el género.
+
+Veamos ahora como varía la cohesión social según la edad. Para eso preparemos los datos de la misma forma que lo hicimos anteriormente con las otras variables, solo que esta vez segmentaremos la edad en cuatro categorías varia agruparlas mejor.
+:::
+
+```{r}
+summary(proc_base$edad)
+
+get_label(proc_base$Edad)
+proc_base <- as.data.frame(proc_base)
+
+proc_base <- proc_base %>% 
+  mutate(edad_groups = case_when(Edad >=16 & Edad<=25 ~ "Entre 16 y 25 años",
+                                 Edad >=26 & Edad<=39 ~ "Entre 26 y 39 años",
+                                 Edad >=40 & Edad<=65 ~ "Entre 40 y 65 años",
+                                 Edad >65 ~ "Más de 65 años"))
+
+table(proc_base$edad_groups)
+```
+
+::: justify
+Con estos datos ya elaborados y procesados, veamos como varía la cohesión social según la edad, el nivel educativo y el sexo al mismo tiempo:
+:::
+
+```{r}
+# Definir el valor numérico para cada categoría de cohesión social
+valores_cohesion_social <- c("Muy poca" = 1, "Poca" = 2, "Algo" = 3, "Bastante" = 4, "Mucha" = 5)
+
+# Transformar la variable cohesión social a numérica según los valores definidos
+proc_base <- proc_base %>%
+  mutate(cohesion_social_num = valores_cohesion_social[cohesion_social])
+
+# Calcular el promedio de cohesión social para cada combinación de educación, sexo y edad
+datos <- proc_base %>%
+  group_by(educacion, Sexo, edad_groups) %>%
+  summarise(promedio = mean(cohesion_social_num, na.rm = TRUE))
+
+# Crear un gráfico de puntos con diferentes colores y formas para cada sexo
+ggplot(datos, aes(x = educacion, y = promedio, color = Sexo, shape = Sexo)) +
+  geom_point(size = 3) +
+  labs(x = "Educación", y = "Promedio de cohesión social", color = "Sexo", shape = "Sexo") +
+  theme_bw() +
+  ylim(0, 5) +
+  facet_wrap(~edad_groups) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+::: justify
+Tal como podemos ver los datos se siguen manteniendo entre los valores 3 y 4 es decir, la población para el año 2016, en función de esta propia encuesta Y de las variables seleccionadas, manifiestan la existencia de una cohesión social como tal. Los datos se mantienen entre la categoría “Algo” y “Bastante”, lo cual da cuenta que hace 8 años la población chilena manifestaba una gran capacidad de asegurar el bienestar para todos sus miembros minimizando disparidades y evitando la politización tal como mencionaba el consejo europeo en palabras de @carlosmaldonadovaleraInclusionCohesionSocial2020 . Sumado eso el resto de las variables que hemos incorporado para la Concepción de cohesión social también dan cuenta de lo mismo. Tanto el sexo, como la edad y el nivel educativo operan de manera transversal al momento de hablar de cohesión social. Según los datos arrojados por El Estudio Longitudinal Social de Chile, nos damos cuenta de que, considerando estas variables, se mantiene una importante y sustantiva percepción de la cohesión social. Sin embargo no por este motivo tenemos que bajarle el perfil a lo que demuestran los resultados, más allá de eso, desde la disciplina de las ciencias sociales tenemos la tarea de llevar estos resultados a lo práctico, es decir, implementar desde estos datos nuevas políticas públicas que puedan aportar a una mayor percepción de la cohesión social, nuevas políticas que fortalezcan la confianza interpersonal entre los individuos de la sociedad, tanto sea con compatriotas como con migrantes, que haya mayor percepción de seguridad y de integración, y que al mismo tiempo exista mayor satisfacción y confianza con el gobierno y las instituciones gubernamentales. Sólo de esta forma se podrá llevar a cabo políticas que aporten a implementar nuevas políticas dirigidas a mejorar la calidad de vida de la sociedad chilena. Junto con esto sería de suma relevancia contrastar estos datos con datos del presente de tal manera que nos permitan el valor de qué manera ha cambiado esta percepción a lo largo del tiempo, considerando factores importantes como lo ha sido el estallido social, la pandemia y el cambio de gobierno.
+:::
