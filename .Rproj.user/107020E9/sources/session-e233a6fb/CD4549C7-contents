@@ -7,7 +7,11 @@ bibliography: Inequidades de genero en el mercado laboral.bib
 link-citations: true
 ---
 
-## Inequidad de genero en el mercado laboral
+##### Por: Francisca Apablaza
+
+## Inequidad de género en el mercado laboral
+
+#### Introducción
 
 En el presente trabajo abordare la inequidad de género específicamente en el mercado laboral. Analizando que elementos podrían afectar en el desarrollo desigual entre hombres y mujeres dentro del mercado laboral. El principal tema que surge cuando hablamos de una desigualdad de género en el trabajo, es la brecha salarial. Sin embargo, quisiera adentrarme en las relaciones que existen dentro de esta esfera y que podrían afectar como cada persona experimenta el mercado laboral.
 
@@ -27,4 +31,35 @@ El segundo punto que analizare, es el rol que cumple la familia, es decir mujere
 
 Y por último, analizare la brecha salarial, si existe diferencia en los ingresos de hombres y mujeres, ver [@nietoDiscriminacionDiferencialesSalarios2016]. Por la naturaleza de la base de datos a analizar puede que se manifieste en el ingreso por hogar y la configuración de esos hogares es decir cuando la mujer es jefe de hogar a deferencia de cuando lo es un hombre o si hay algun otro elemento que influya en el salario.
 
-Me interesa centrarme en estas 3 aristas para poder realizar lo más cercano a una evaluación general de la inequidad de genero en el mercado laboral.
+Me interesa centrarme en estas 3 aristas para poder realizar un radiografía que me permita abarcar la mayor cantidad de aspectos sobre la inequidad de genero en el mercado laboral.
+
+#### Metodología
+
+En el presente trabajo para lograr realizar un análisis estadístico de las “inequidades de genero en el mercado laboral” estaré trabajando con la base de dados de la Encuesta de Caracterización Socioeconómica Nacional, desde ahora (CASEN), la cual es una encuesta hacia los hogares realizado por el Ministerio de Desarrollo Social y Familia.
+
+Trabajare con una serie de variables que me permitan abordar las 3 aristas que propuse anteriormente, ahora bien, como primer filtro estaré trabajando la base de datos entre los rangos etarios desde los 25 hasta los 65años, ya que es la principal población activa, en el mercado laboral, se que en la practica esto difiere, sin embargo, por efectos prácticos del análisis, y acotar el trabajo, lo realice así.
+
+Por otro lado, el objetivo es ver como se comportan las variables en relación al género, si existe una diferencia significativa y analiza se hombres y mujeres se desarrollan distintos en el mercado laboral. Para esto cada variable será cruzada con la variable de sexo.
+
+#### Analisis de datos
+
+##### Cargar paquetes:
+
+```{r}
+pacman::p_load(sjlabelled,
+               dplyr, #Manipulacion de datos
+              stargazer, #Tablas
+              sjmisc, # Tablas
+              summarytools, # Tablas
+              kableExtra, #Tablas
+              sjPlot, #Tablas y gráficos
+              corrplot, # Correlaciones
+              sessioninfo, # Información de la sesión de trabajo
+              ggplot2) # Para la mayoría de los gráficos
+```
+
+##### Cargar base de datos:
+
+```{r}
+
+```

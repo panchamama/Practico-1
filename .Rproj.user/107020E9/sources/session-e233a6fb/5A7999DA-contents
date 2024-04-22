@@ -1,0 +1,109 @@
+## Procesamiento de datos ##
+##    José Norambuena     ##
+##       Trabajo 2        ##
+############################
+
+
+#### 1. Instalación de paquetes ####
+install.packages("pacman")
+
+# 1.1. Cargar paquetes
+pacman::p_load(dplyr, sjmisc, car, sjlabelled, stargazer, haven)
+
+#### 2. Cargar base de datos ####
+# 2.1 Pasos previos 
+rm(list=ls())       # borrar todos los objetos en el espacio de trabajo
+options(scipen=999) # valores sin notación científica
+
+# 2.2 Cargar la base de datos desde internet
+CASEN <- read_sav("input/CASEN.sav")
+
+#### 3. Selección de variables ####
+# r3 --> pueblos originarios
+#e6a --> ¿Cuál es el nivel educacional al que asiste o el más alto al cual asistió?
+#e8 --> ¿En qué tipo de institución realizó su educación superior?
+#e9depen --> Dependencia administrativa del establecimiento educacional (Mineduc)
+#e16 --> En el año escolar 2022, ¿paga por la carrera que estudia?
+#e18 --> En el año escolar 2022, ¿recibe créditos universitarios?
+#o1 --> La semana pasada, ¿trabajó al menos 1 hora, sin considerar quehaceres hogar?
+#y1 --> Ingresos
+#sexo
+
+# 3.1 Seleccionar variable de interés y crear nueva base de datos
+CASEN <- CASEN %>% select(r3, # Pertenencia a pueblos originarios
+                          e6a, # Nivel educativo más alto asistiendo o asistido
+                          e8, # Tipo de institución de Educación Superior
+                          e9depen, # Dependencia administrativa del establecimiento educacional (Básica y media)
+                          e16,# Pago por la carrera que estudia
+                          e18,# Créditos universitarios recibidos
+                          o1,# Trabajo
+                          y1) # Ingresos
+
+# Comprobar
+names(CASEN)
+
+# 3.2 Atributo de las variables
+sjlabelled::get_label(CASEN)
+
+#### 4. Procesamiento de variables ####
+## 4.1 Renombrar variables ##
+CASEN <- CASEN %>% rename("pueb_or"=r3, # Pertenencia a pueblos originarios
+                          "educ"=e6a, # Nivel educativo más alto alcanzado
+                          "est_educ_sup"=e8, # Tipo de establecimiento de educación superior
+                          "est_educ"=e9depen, # Dependencia administrativa del establecimiento educacional (Básica y media)
+                          "pago_educ_sup" = e16, #Pago por la carrera que estudia
+                          "cred_univ" = e18, #Créditos universitarios recibidos
+                          "trabajo" = o1, #Trabajo
+                          "ingresos" = y1) #Ingresos
+# Comprobar cambio de nombre
+names(CASEN)
+
+## 4.2 Recodificación de casos perdidos a NA 
+# Pertenencia a pueblos originarios
+frq(CASEN$pueb_or) #No hay que recodificar
+# Nivel educativo
+frq(CASEN$educ) #No hay que recodificar
+# Tipo de institucion de educación superior
+frq(CASEN$est_educ_sup)
+CASEN$est_educ_sup <- recode(CASEN$est_educ_sup, "c(-99,-88)=NA")
+# Dependencia de establecimiento educacional (básica y media)
+frq(CASEN$est_educ)
+CASEN$est_educ <- recode(CASEN$est_educ, "c(-66)=NA")
+# Pago por la carrera que estudia
+frq(CASEN$pago_educ_sup)
+CASEN$pago_educ_sup <- recode(CASEN$pago_educ_sup, "c(-88)=NA")
+# Crédito universitario
+frq(CASEN$cred_univ) #No hay que recodificar
+# Trabajo
+frq(CASEN$trabajo) #No hay que recodificar
+# Ingresos
+frq(CASEN$ingresos)
+CASEN$ingresos <- recode(CASEN$ingresos, "c(-88)=NA")
+
+## 4.3 Recodificación de casos perdidos para toda la base
+CASEN <- CASEN %>% set_na(., na = c(-66, -88, -99))
+
+# 4.1.5 Reordenar categorías de algunas variables 
+# Pertenencia a Pueblos Originarios
+frq(CASEN$pueb_or)
+CASEN$pueb_or <- recode(CASEN$pueb_or, "1:10=1; 11=0")
+CASEN$pueb_or <- set_labels(CASEN$pueb_or,
+                            labels=c( "Sí"=0,
+                                      "No"=1))
+# Nivel educativo
+frq(CASEN$educ)
+CASEN$educ <- recode(CASEN$educ, "1=0; 2:5=NA; 6:7=1; 8:11=2; 12:13=3; 14:15=4")
+CASEN$educ <- set_labels(CASEN$educ,
+                         labels=c( "No asistió"=0,
+                                   "Básica"=1,
+                                   "Media"=2,
+                                   "Superior"=3,
+                                   "Postgrados"=4))
+
+# Tipo de institución de educación superior
+frq(CASEN$est_educ_sup)
+CASEN$est_educ_sup <- recode(CASEN$est_educ_sup, "NA=0; 1=1; 2=2; 3:5=3; 6=4; 7=3")
+
+
+
+

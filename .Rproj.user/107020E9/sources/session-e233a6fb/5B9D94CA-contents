@@ -1,0 +1,138 @@
+#Preparacion
+setwd("~/GitHub/R-Studio-UAH/input/ELSOC 2016/Datasets")
+rm(list=ls())       # borrar todos los objetos en el espacio de trabajo
+options(scipen=999) # valores sin notación científica
+library(dplyr)
+library(pacman)
+pacman::p_load(sjlabelled,
+               dplyr, 
+               stargazer,
+               sjmisc, 
+               summarytools, 
+               kableExtra,
+               sjPlot, 
+               corrplot, 
+               sessioninfo,
+               ggplot2, 
+               sjt.xtab,
+               mergue,
+               tbl_vars,
+               car,
+               haven,
+               librería,
+               readxl,
+               Rcpp,
+               psych)
+
+load("~/GitHub/R-Studio-UAH/input/ELSOC 2016/Datasets/ELSOC_W01_v4.01_R.RData")
+View(elsoc_2016)
+dim(elsoc_2016)
+names(elsoc_2016)
+
+#La cohesión social varía según el nivel educacional y/o sexo, edad de los encuestados
+
+#Selección de variables
+
+proc_base <- elsoc_2016 %>% select(m01, #Nivel educacional
+                                   m0_sexo, #Sexo
+                                   m0_edad, #Edad
+                                   t01, #Confianza en vecinos
+                                   t02_02, #Integracion en el barrio
+                                   t06_01, #Seguridad en el barrio
+                                   t06_02, #Conectividad
+                                   t08, #Evaluacion del barrio
+                                   r07, #Contacto positivo con migrantes peruanos
+                                   c01, #Satisfaccion con la democracia
+                                   c05_01) #Confianza en el gobierno
+
+                                  
+proc_base <- na.omit(proc_base)
+
+dim(proc_base)
+names(proc_base)
+
+#Procesamiento de variables 
+
+summarytools::dfSummary(proc_base, plain.ascii = FALSE)
+
+#Creación de variable Cohesión social
+proc_base$cohesion_social <- rowMeans(select(proc_base, 
+                                              starts_with("t01"),
+                                              starts_with("t02_02"),
+                                              starts_with("t06_01"),
+                                              starts_with("t06_02"),
+                                              starts_with("t08"),
+                                              starts_with("r07"),
+                                              starts_with("c01"),
+                                              starts_with("c05_01")))
+sjlabelled::get_label(proc_base)
+
+frq(proc_base$cohesion_social)
+
+# Recodificar valores negativos como NA
+proc_base$cohesion_social <- ifelse(proc_base$cohesion_social < 0, NA, proc_base$cohesion_social)
+
+#Etiquetar
+proc_base <- proc_base %>% rename("N_ed"=m01, # Nivel Educacional
+                                  "Sexo"=m0_sexo, # Sexo
+                                  "Edad"=m0_edad) # Edad
+
+proc_base$N_ed <- set_label(x = proc_base$N_ed,label = "Nivel Educacional")
+get_label(proc_base$N_ed)
+proc_base$Sexo <- set_label(x = proc_base$Sexo,label = "Sexo")
+get_label(proc_base$Sexo)
+proc_base$Edad <- set_label(x = proc_base$Edad,label = "Edad")
+get_label(proc_base$Edad)
+proc_base$cohesion_social <- set_label(x = proc_base$cohesion_social,label = "Cohesion Social")
+get_label(proc_base$cohesion_social)
+
+# Etiquetar los valores de la variable cohesion_social
+summary(proc_base$cohesion_social)
+
+freq(proc_base$cohesion_social)
+
+proc_base$cohesion_social <- set_labels(proc_base$cohesion_social,
+                                 labels=c( "Muy poca"=1,
+                                           "Poca"=2,
+                                           "Algo"=3,
+                                           "Bastante"=4,
+                                           "Mucha"=5))
+frq(proc_base$cohesion_social)
+
+# Definir los límites de los intervalos y las etiquetas correspondientes
+intervalos <- c(-Inf, 1, 2, 3, 4, Inf)
+etiquetas <- c("Muy poca", "Poca", "Algo", "Bastante", "Mucha")
+
+proc_base$cohesion_social <- cut(proc_base$cohesion_social, breaks = intervalos, labels = etiquetas, include.lowest = TRUE)
+
+frq(proc_base$cohesion_social)
+
+#Etiquetar Valores nivel educacional
+
+frq(proc_base$N_ed)
+proc_base$N_ed <- car::recode(proc_base$N_ed, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+frq(proc_base$N_ed)
+proc_base$N_ed <- factor(proc_base$N_ed,
+                             labels = c("Educacion basica", "Educacion media", "Educacion superior"),
+                             levels = c(1, 2, 3))
+frq(proc_base$N_ed)
+proc_base <- rename(proc_base,"educacion"=N_ed)
+
+#Etiquetar Sexo
+frq(proc_base$Sexo)
+proc_base$Sexo <- car::recode(proc_base$Sexo, "1=0;2=1")
+proc_base$Sexo <- factor(proc_base$Sexo,
+                         labels=c( "Hombre",
+                                   "Mujer"),
+                         levels=c(0,1))
+get_label(proc_base$Sexo)
+proc_base$Sexo <- set_label(x = proc_base$Sexo,label = "Sexo")
+frq(proc_base$Sexo)
+
+#Edad
+frq(proc_base$Edad)
+
+get_label(proc_base$Edad)
+proc_base <- as.data.frame(proc_base)
+
+save(proc_base,file = "~/GitHub/R-Studio-UAH/input/ELSOC 2016/Datasets/ELSOC_W01_v4.01_R")
