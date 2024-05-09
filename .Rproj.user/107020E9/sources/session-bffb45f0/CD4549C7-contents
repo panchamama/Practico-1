@@ -211,7 +211,7 @@ graph1 <- proc_base %>% ggplot(aes(x = busqueda_trbj, fill = sexo)) +
 graph1
 ```
 
-\[@fig_busqueda_de_trabajo\]
+[@fig_busqueda_de_trabajo]
 
 Por ultimo para analizar la brecha salarial, podemos observar que primero la cantidad de mujeres sin sueldo es de un 10.3%, mientras que los hombres sin sueldo es de 4.2%. Cuando nos fijamos en la categoria de sueldo inferior, vemos que las mujeres son el 9.3% mientras que los hombres son el 4.2%.
 
