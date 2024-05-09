@@ -15,11 +15,11 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "9,0",
+        "cursorPosition": "33,0",
         "scrollLine": "0",
         "docOutlineVisible": "1",
         "rmdVisualCollapsedChunks": "",
-        "rmdVisualModeLocation": "166:5756",
+        "rmdVisualModeLocation": "5683:0",
         "ignored_words": "realizacion\n",
         "docOutlineSize": "104"
     },
@@ -28,7 +28,7 @@
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1715268954781,
+    "last_content_update": 1715277195565,
     "read_only": false,
     "read_only_alternatives": []
 }

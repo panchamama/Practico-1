@@ -25,7 +25,7 @@ Con todo lo mencionado la hipótesis centras de este trabajo es que existe un se
 
 El primero punto es sobre la brecha laboral de género, es decir si realmente hay mas hombres que mujeres en el mercado laboral, debido a que la mujer realiza mas trabajos informales que los hombres, como el trabajo doméstico no remunerado, deberíamos ver una diferencia en la participación de ambos actores en el trabajo asalariado, [ver @nietoDiscriminacionDiferencialesSalarios2016].
 
-El segundo punto que analizare, es el rol que cumple la familia, es decir mujeres casadas y con hijos en comparación a hombres. Este punto me interesa abordarlo debido a lo que mencione anteriormente, ya que la mujer se ve enfrentadas a otras tareas que puede diferenciarla al momento de integrarse al mercado laboral [ver @defanelliPatronesDesigualdadSocial1989].
+El segundo punto que analizare, es el rol que cumple la familia, es decir mujeres casadas y con hijos en comparación a hombres. En este punto me interesa abordarlo, debido a lo que mencione anteriormente, ya que la mujer se ve enfrentadas a otras tareas que puede diferenciarla al momento de integrarse al mercado laboral [ver @defanelliPatronesDesigualdadSocial1989].
 
 Y por último, analizare la brecha salarial, si existe diferencia en los ingresos de hombres y mujeres, ver [@nietoDiscriminacionDiferencialesSalarios2016]. Por la naturaleza de la base de datos a analizar puede que se manifieste en el ingreso por hogar y la configuración de esos hogares es decir cuando la mujer es jefe de hogar a deferencia de cuando lo es un hombre o si hay algun otro elemento que influya en el salario.
 
@@ -35,7 +35,7 @@ Me interesa centrarme en estas 3 aristas para poder realizar un radiografía que
 
 En el presente trabajo para lograr realizar un análisis estadístico de las “inequidades de genero en el mercado laboral” estaré trabajando con la base de dados de la Encuesta de Caracterización Socioeconómica Nacional, desde ahora (CASEN), la cual es una encuesta hacia los hogares realizado por el Ministerio de Desarrollo Social y Familia.
 
-Trabajare con una serie de variables que me permitan abordar las 3 aristas que propuse anteriormente, ahora bien, como primer filtro estaré trabajando la base de datos entre los rangos etarios desde los 25 hasta los 65años, ya que es la principal población activa, en el mercado laboral, se que en la practica esto difiere, sin embargo, por efectos prácticos del análisis, y acotar el trabajo, lo realice así.
+Trabajare con una serie de variables que me permitan abordar las 3 aristas que propuse anteriormente, ahora bien, como primer filtro estaré trabajando la base de datos entre los rangos etarios desde los 25 años hasta los 65 años, ya que es la principal población activa, en el mercado laboral, se que en la practica esto difiere, sin embargo, por efectos prácticos del análisis, y acotar el trabajo, lo realice así.
 
 Por otro lado, el objetivo es ver como se comportan las variables en relación al género, si existe una diferencia significativa y analiza se hombres y mujeres se desarrollan distintos en el mercado laboral. Para esto cada variable será cruzada con la variable de sexo.
 
