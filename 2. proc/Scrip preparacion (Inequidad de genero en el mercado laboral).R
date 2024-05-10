@@ -32,7 +32,7 @@ sjlabelled::get_label(proc_base) #atributo de la variable
 
 # 4.1 Filtrar base de datos por edad #
 proc_base <- filter(proc_base, edad >= 25 & edad <= 65)
-
+ 
 # 5. Procesamiento de variables # ----
 
 ## 5.1 Participacion en el mercado laboral ## ----
@@ -46,18 +46,28 @@ summary(proc_base$o2) #Confirmacion
 
 frq(proc_base$o10) #Descriptivo
 proc_base$o10 <- recode(proc_base$o10, "c(-88)=NA")
-proc_base$o10 <- recode(proc_base$o10, "0=0; 1:30=1; 31:45=2; 45:85=3")
+proc_base$o10 <- recode(proc_base$o10, "0=0; 1:30=1; 31:45=2; 45:60=3; 61:168=NA")
 proc_base$o10 <- set_labels(proc_base$o10,
                             labels=c( "No_trbj"=0,
                                       "Trbj_me8"=1,
                                       "Trbj_8"=2,
                                       "Trbj_ma8"=3))
 summary(proc_base$o10) #Confirmacion
+frq(proc_base$o10)
 
 # Etiquetado
 proc_base <- proc_base %>% rename("trbj"=o1, # Trabajo
                                   "trbj_no formal"=o2, # No trabajo, pero realizo una actividad por salario
                                   "horas_trbj"=o10) # Horas de trabajo
+
+get_label(proc_base$trbj)
+proc_base$trbj <- set_label(x = proc_base$trbj,label = "Trabajo")
+
+get_label(proc_base$`trbj_no formal`)
+proc_base$`trbj_no formal` <- set_label(x = proc_base$`trbj_no formal`,label = "Trabajo no formal")
+
+get_label(proc_base$horas_trbj)
+proc_base$horas_trbj <- set_label(x = proc_base$horas_trbj,label = "Horas de trabajo")
 
 ## 5.2 Rol de la familia ## ----
 frq(proc_base$pco1_a) #Descriptivo
@@ -85,8 +95,20 @@ summary(proc_base$o7) #Cornfirmacion
 #Etiquetado
 proc_base <- proc_base %>% rename("jefe_h"=pco1_a, # Jefe de hogar
                                   "pareja"=h5_cp, # Pareja dentro del hogar
-                                  "mp_vivienda"=h5_10, # vive el madre o el padre en la vivienda
+                                  "mp_vivienda"=h5_10, # vive la madre o el padre en la vivienda
                                   "busqueda_trbj"=o7) #Porque no busco trabajo 
+
+get_label(proc_base$jefe_h)
+proc_base$jefe_h <- set_label(x = proc_base$jefe_h,label = "Jefe de hogar")
+
+get_label(proc_base$pareja)
+proc_base$pareja <- set_label(x = proc_base$pareja,label = "Pareja dentro del hogar")
+
+get_label(proc_base$mp_vivienda)
+proc_base$mp_vivienda <- set_label(x = proc_base$mp_vivienda,label = "Vive la madre o el padre en la vivienda")
+
+get_label(proc_base$busqueda_trbj)
+proc_base$busqueda_trbj <- set_label(x = proc_base$busqueda_trbj,label = "Motivo de porque no busco trabajo")
 
 ## 5.3 Brecha salarial ## ----
 frq(proc_base$y1) #Descriptivo
@@ -197,4 +219,4 @@ graph8
 ggsave(graph8, file="3. output/graph8.png")
 
 # 7. Guardar # ----
-save(proc_base,file = "1. input/CASEN_record.rdata")
+save(proc_base,file = "1. input/CASEN_recod.rdata")

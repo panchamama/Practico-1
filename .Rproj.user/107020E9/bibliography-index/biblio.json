@@ -188,6 +188,19 @@
             "volume": "17"
         },
         {
+            "id": "GENEROMERCADOLABORAL2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        5
+                    ]
+                ]
+            },
+            "title": "GÉNERO Y MERCADO LABORAL EN CHILE",
+            "type": "article-journal"
+        },
+        {
             "abstract": "Analysis of gender differences in the labour market has given rise to many theories aiming to explain the situation. Most of them are based on a neo-classical economic approach but some inter-disciplinary paradigms adopt a broader focus. This article first analyses empirical evidence from the Social Economy with regard to gender inequality. It then discusses the possible application of the main theories for explaining labour inequality between men and women in Social Economy entities, based on the specific structure of such organisations.",
             "annote": "MAG ID: 1502364377",
             "author": [
@@ -286,59 +299,6 @@
             "title": "Reflexiones acerca de las desigualdades sociales y el género",
             "type": "article-journal",
             "volume": "25"
-        },
-        {
-            "author": [
-                {
-                    "family": "Arantza Ugidos Olazábal"
-                },
-                {
-                    "family": "Arantza Ugidos Olazabal"
-                },
-                {
-                    "dropping-particle": "de la",
-                    "family": "Rica",
-                    "given": "Sara"
-                },
-                {
-                    "family": "Olazabal",
-                    "given": "Arantza Ugidos"
-                },
-                {
-                    "family": "Sara De la Rica Goiricelaya"
-                },
-                {
-                    "family": "Ugidos",
-                    "given": "Arantza"
-                },
-                {
-                    "family": "De la Rica Goiricelaya",
-                    "given": "Sara"
-                },
-                {
-                    "family": "Sara De la Rica Goiricelaya"
-                },
-                {
-                    "family": "Sara De la Rica Goiricelaya"
-                }
-            ],
-            "container-title": "Investigacion Economica",
-            "id": "arantzaugidosolazábal1995",
-            "issue": "3",
-            "issued": {
-                "date-parts": [
-                    [
-                        1995,
-                        1,
-                        1
-                    ]
-                ]
-            },
-            "note": "MAG ID: 1498526003",
-            "page": "395-414",
-            "title": "Son las diferencias en capital humano determinantes en las diferencias salariales entre hombres y mujeres",
-            "type": "article-journal",
-            "volume": "19"
         }
     ],
     "project_biblios": []
