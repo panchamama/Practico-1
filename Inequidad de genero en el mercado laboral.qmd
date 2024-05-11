@@ -158,7 +158,7 @@ sjt.xtab(proc_base$pareja, proc_base$Salario,
 )
 ```
 
-Lo primero que podemos apreciar es que hay mas personas sin pareja, que con pareja, donde notamos una mayor diferencia es con el parametro de sueldo promedio, donde las personas sin pareja son mucho mayores que los demas datos, ahora esta tabla no nos dice micho. Ahora bien que ocurre con las horas destinadas al trabajo cuando hay una pareja en el hogar.
+Lo primero que podemos apreciar es que hay mas personas sin pareja, que con pareja, donde notamos una mayor diferencia es con el parametro de sueldo promedio, donde las personas sin pareja son mucho mayores que los demas datos, ahora esta tabla no nos dice mucho. Ahora bien que ocurre con las horas destinadas al trabajo cuando hay una pareja en el hogar.
 
 ```{r}
 sjt.xtab(proc_base$pareja, proc_base$horas_trbj,
@@ -234,6 +234,27 @@ graph2 <- proc_base %>% ggplot(aes(x = Salario, fill = sexo)) +
   scale_fill_discrete(labels = c('Hombre','Mujer'))
 
 graph2
+```
+
+#### Construccion de indice de bracha laboral de genero
+
+En este punto de la investigación es necesario trabajar con una recodificación de la base datos anterior, ya que como se encuentra codificada actualmente era útil para un primer análisis de los datos, sin embargo, para la construcción del índice es necesario recodificarla.
+
+```{r}
+pacman::p_load(tidyverse, #Conjunto de paquetes, sobre todo dplyr y ggplot2
+               car, #Para recodificar
+               haven,
+               summarytools, #Para descriptivos
+               sjmisc,
+               psych     # para Alfa de Chronbach
+               )
+
+options(scipen = 999) # para desactivar notacion cientifica
+rm(list = ls()) # para limpiar el entorno de trabajo
+```
+
+```{Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's}
+  0.000   0.667   1.000   0.754   1.000   1.000   30739 
 ```
 
 #### Conclusíon

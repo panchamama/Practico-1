@@ -241,19 +241,12 @@ graph2
 En este punto de la investigación es necesario trabajar con una recodificación de la base datos anterior, ya que como se encuentra codificada actualmente era útil para un primer análisis de los datos, sin embargo, para la construcción del índice es necesario recodificarla.
 
 ```{r}
-pacman::p_load(tidyverse, #Conjunto de paquetes, sobre todo dplyr y ggplot2
-               car, #Para recodificar
-               haven,
-               summarytools, #Para descriptivos
-               sjmisc,
-               psych     # para Alfa de Chronbach
-               )
-
-options(scipen = 999) # para desactivar notacion cientifica
 rm(list = ls()) # para limpiar el entorno de trabajo
 ```
 
-Cuando hablamos de brecha de genero, la importancia que tiene la participacion de las mujeres en el mercado laboral, es fundamental para poder analizar esta brecha. En mi busqueda el
+```{r}
+
+```
 
 #### Conclusíon
 
