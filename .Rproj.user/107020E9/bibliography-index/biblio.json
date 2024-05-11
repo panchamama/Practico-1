@@ -198,6 +198,11 @@
                 ]
             },
             "title": "GÉNERO Y MERCADO LABORAL EN CHILE",
+            "type": ""
+        },
+        {
+            "id": "INEQUIDADESBRECHASGENERO",
+            "title": "INEQUIDADES Y BRECHAS DE GÉNERO EN EL EMPLEO",
             "type": "article-journal"
         },
         {
@@ -299,6 +304,20 @@
             "title": "Reflexiones acerca de las desigualdades sociales y el género",
             "type": "article-journal",
             "volume": "25"
+        },
+        {
+            "URL": "https://www.ine.gob.cl/docs/default-source/prensa-y-comunicacion/g%C3%A9nero-y-mercado-laboral-en-chile.pdf?sfvrsn=3d7458c3_2",
+            "id": "ENE",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        5
+                    ]
+                ]
+            },
+            "title": "GÉNERO y MERCADO LABORAL EN CHILE",
+            "type": "article-journal"
         }
     ],
     "project_biblios": []

@@ -59,7 +59,7 @@ pacman::p_load(sjlabelled,
 ##### Cargar base de datos:
 
 ```{r}
-load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_record.rdata"))
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_recod.rdata"))
 ```
 
 ```{r}
@@ -236,31 +236,116 @@ graph2 <- proc_base %>% ggplot(aes(x = Salario, fill = sexo)) +
 graph2
 ```
 
-#### Construccion de indice de bracha laboral de genero
-
-En este punto de la investigación es necesario trabajar con una recodificación de la base datos anterior, ya que como se encuentra codificada actualmente era útil para un primer análisis de los datos, sin embargo, para la construcción del índice es necesario recodificarla.
-
-```{r}
-pacman::p_load(tidyverse, #Conjunto de paquetes, sobre todo dplyr y ggplot2
-               car, #Para recodificar
-               haven,
-               summarytools, #Para descriptivos
-               sjmisc,
-               psych     # para Alfa de Chronbach
-               )
-
-options(scipen = 999) # para desactivar notacion cientifica
-rm(list = ls()) # para limpiar el entorno de trabajo
-```
-
-```{Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's}
-  0.000   0.667   1.000   0.754   1.000   1.000   30739 
-```
-
-#### Conclusíon
-
 Bueno el recorrido que hicimos al analizar las variables, podemos ver cómo hay ciertos factores que tienen más relevancia que otros, para cumplir la hipótesis. Recordemos que este trabajo tiene por objetivo realizar un análisis estadístico de la "Inequidad de géneros", para esto comprendí el problema desde 3 aristas.
 
 El primer aspecto que pude corroborar es que efectivamente hay una mayor participación de hombres en el mercado laboral en comparación con las mujeres. Como un segundo aspecto era como afecta las relaciones del hogar, esto nonos entrego muchos resultados, a excepción de cuando analice las razones de porque no han buscado trabajo en el ultimo tiempo y los resultados afirman que las mujeres se hacen cargos de otras tareas en este caso tareas de cuidado y quehaceres del hogar lo cual impide notoriamente la búsqueda de un trabajo, mientras los hombres no se ven muy afectados por esto. Por último, vemos que, si hay efectivamente una brecha salarial, en el mercado laboral, los hombres presentan mejor valoración de su trabajo vs las mujeres.
 
 En resumen, el análisis de las variables nos permite confirmas la hipótesis que, si existe una inequidad laboral, y hay elementos que influyen en ellos, sin embargo, creo que es necesario que se deba ahondar un poco más, para poder corregir y reevaluar cosas que talvez en una primera instancia no se considera.
+
+#### Construccion de indice de bracha laboral de genero
+
+En este punto de la investigación es necesario trabajar con una recodificación de la base datos anterior, ya que como se encuentra codificada actualmente era útil para un primer análisis de los datos, sin embargo, para la construcción del índice es necesario recodificarla.
+
+```{r}
+rm(list = ls()) # para limpiar el entorno de trabajo
+```
+
+```{r}
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_recodd.rdata"))
+```
+
+```{r}
+dim(proc_base)
+names(proc_base) 
+```
+
+En mi búsqueda bibliográfica no pude encontrar algún índice explícito sobre la inequidad laboral, sin embargo, cuando hablamos de índice de brecha de género, la dimensión laboral cumple un rol fundamental para comprender la brecha de género. Es por esto que, para la construcción del índice de inequidad de género, me base en dos principales investigaciones, la primera es del Instituto Nacional de Estadística (INE), la Encuesta Nacional de Empleo [@ENE] y el segundo fue la investigación de “Inequidades y brechas de género en el empleo”, realizada por [@ENCLA].
+
+Entonces para realizar un índice de inequidad laboral de género, las dimensiones que salen a la luz en estas investigaciones son; la primera es la participación laboral, es decir que participación están teniendo hombres y mujeres en el mercado laboral, otra dimensión es como la familia o la organización de los hogares afecta en esta participación, una tercera dimensión es el salario, es decir como los ingresos se distribuyen entre hombres y mujeres. En resumen, el índice de brecha laboral por genero se vería de la siguiente manera.
+
+1.  Participacion laboral: trabajo - trabajo de manera informal - horas trabajadas
+
+2.  Composicion del hogar: jefe de hogar - tiene pareja - madre o padre viven en el hogar
+
+3.  Salario: Ingresos
+
+Para poder analizar la diferencia de estas dimensiones entre hombres y mujeres, fue necesario analizarlo por separado, entonces cuando los resultados esten mas cerca del 0, significa que las condiciones del mercado laboral son mas desiguales, mientras que cuando se encuentran mas cerca del 1, implicara que las condiciones en el mercado laboral, son mas justas.
+
+```{r}
+CASEN_mujeres <- proc_base %>% dplyr::filter(sexo == "Mujer" )
+CASEN_hombres <- proc_base %>% dplyr::filter(sexo == "Hombre")
+```
+
+Primero veamos que obtemenos cuando filtramo el indice por los hombres:
+
+```{r}
+CASEN_hombres <- CASEN_hombres %>% select(jefe_h,
+                                pareja,
+                                mp_vivienda,
+                                trbj,
+                                `trbj_no formal`,
+                                horas_trbj,
+                                Salario)  %>%
+  mutate_all(~(as.numeric(.))) # Convertimos todas las variables a numéricas
+```
+
+```{r}
+CASEN_hombres = CASEN_hombres %>% 
+  rowwise() %>%
+  mutate(participacion_laboral= mean(c(trbj,`trbj_no formal`,horas_trbj)),
+         Composicion_del_hogar= mean(c(jefe_h, pareja, mp_vivienda)),
+         Salario= mean(c(Salario))) %>% 
+  ungroup()
+```
+
+```{r}
+CASEN_hombres = CASEN_hombres %>% 
+  rowwise() %>%
+  mutate(inequidad_laboral = mean(c(participacion_laboral, Composicion_del_hogar, Salario), na.rm = T)) %>% 
+  ungroup() 
+
+summary(CASEN_hombres$inequidad_laboral) # Resumen
+```
+
+Vemos que el primer cuartil en el caso de los hombres esta en el 1, al igual que su mediana lo que implican uqe tienen buenas condiciones laborales, en el ambito de lo que es, tanto participacion, como el salario que obtienen. La media tambien se encuentra alta siendo 0.867.
+
+Ahora bien cuando el indice esta filtrado por las mujeres obtenemos lo siguiente;
+
+```{r}
+CASEN_mujeres <- CASEN_mujeres %>% select(jefe_h,
+                                      pareja,
+                                      mp_vivienda,
+                                      trbj,
+                                      `trbj_no formal`,
+                                      horas_trbj,
+                                      Salario)  %>%
+  mutate_all(~(as.numeric(.))) # Convertimos todas las variables a numéricas
+```
+
+```{r}
+CASEN_mujeres = CASEN_mujeres %>% 
+  rowwise() %>%
+  mutate(participacion_laboral= mean(c(trbj,`trbj_no formal`,horas_trbj)),
+         Composicion_del_hogar= mean(c(jefe_h, pareja, mp_vivienda)),
+         Salario= mean(c(Salario))) %>% 
+  ungroup()
+```
+
+```{r}
+CASEN_mujeres = CASEN_mujeres %>% 
+  rowwise() %>%
+  mutate(inequidad_laboral = mean(c(participacion_laboral, Composicion_del_hogar, Salario), na.rm = T)) %>% 
+  ungroup() 
+
+summary(CASEN_mujeres$inequidad_laboral) # Resumen 
+```
+
+Podemos notar de inmediato algunas diferencias respecto a los hombres, una primera es uqe el primer cuartil a diferencia de los hombres que era 1, en el caso de las mujeres es 0.667, hay una diferencia significativa en este punto, esto quiere decir que el 25% de las mujeres presentan una desigualdad en el mercado lavoral a diferencia del 25% de los hombres. Ahora bien la mediana tenemos la misma que en el caso de los hombres que es 1, mientras que la media en las mujeres es de 0.754, en los hombres era de 0.867, la difencia no es tanta, pero sin embargo sigue demostrando que los hombres tienen mejores condiciones en el mercado laboral.
+
+En resumen podemos observar como los distintos resultados evidencian que la inequidad de genero en el mercado laboral aun se encuentra latente, y que las areas planteadas en la introduccion de este trabajo, si tienen una relacion directa con esto. Por otro lado el indice funciona como una herramienta para sintetizar las variables.
+
+#### Conclusiones
+
+El análisis realizado debela una disparidad entre hombres y mujeres en el ámbito laboral, en otras palabras, hay una brecha de genero en el mercado laboral. En este trabajo solo analizo algunos factores que pueden incidir en esto, sin embargo, quiero aclarar que puede llegar a ser un tema muy amplio y existen más factores que en un futuro podríamos analizar.
+
+La inequidad de genero sigue siendo un desafío que tenemos que abordar para poder avanzar en la equidad entre hombres y mujeres, el mercado laboral es solo un espacio en el cual es importante trabajar las desigualdades.

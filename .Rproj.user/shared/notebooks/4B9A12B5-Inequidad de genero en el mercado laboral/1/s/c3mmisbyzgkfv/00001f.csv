@@ -1,4 +1,5 @@
-"0","load(url(""https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_record.rdata""))"
+"0","load(url(""https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_record.rdata""))
+"
 "2","Warning: cannot open URL 'https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_record.rdata': HTTP status was '404 Not Found'"
 "2","Error in load(url(""https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_record.rdata"")) : 
   cannot open the connection to 'https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_record.rdata'

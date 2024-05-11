@@ -79,7 +79,7 @@ proc_base$Salario <- as.numeric(proc_base$Salario)
 proc_base$Salario <- recode(proc_base$Salario, "0:1=0; 2:32=1")
 summary(proc_base$Salario) #Cornfirmacion
 
-## 2.2 Recodificacion base de datos ## ----
+## 2.3 Recodificacion base de datos ## ----
 CASEN_mujeres <- proc_base %>% dplyr::filter(sexo == "Mujer" )
 CASEN_hombres <- proc_base %>% dplyr::filter(sexo == "Hombre")
 
@@ -120,7 +120,6 @@ CASEN_mujeres <- CASEN_mujeres %>% select(jefe_h,
                                       horas_trbj,
                                       Salario)  %>%
   mutate_all(~(as.numeric(.))) # Convertimos todas las variables a numéricas
-
 
 CASEN_mujeres = CASEN_mujeres %>% 
   rowwise() %>%

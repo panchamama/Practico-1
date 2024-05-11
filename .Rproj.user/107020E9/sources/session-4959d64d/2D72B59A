@@ -3,7 +3,7 @@
     "path": "~/GitHub/Practico-1/2. proc/Scrip preparacion (Inequidad de genero en el mercado laboral).R",
     "project_path": "2. proc/Scrip preparacion (Inequidad de genero en el mercado laboral).R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "2867730475",
     "contents": "",
     "dirty": false,
     "created": 1713298937611.0,
@@ -16,12 +16,12 @@
         "cursorPosition": "19,0",
         "scrollLine": "0"
     },
-    "folds": "4|31|7|0|\n8|21|11|0|\n12|21|17|0|\n35|34|36|0|\n37|46|70|0|\n71|28|111|0|\n112|26|125|0|\n126|15|136|0|\n139|44|147|0|\n150|44|171|0|\n172|26|200|0|\n201|24|219|0|\n",
+    "folds": "4|31|7|0|\n8|21|11|0|\n12|21|17|0|\n18|30|34|1|\n35|34|36|0|\n37|46|70|0|\n71|28|111|0|\n112|26|125|0|\n126|15|136|0|\n139|44|147|0|\n150|44|171|0|\n172|26|200|0|\n201|24|219|0|\n220|15|222|0|\n",
     "lastKnownWriteTime": 1715363093,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1715390532476,
+    "last_content_update": 1715392782862,
     "read_only": false,
     "read_only_alternatives": []
 }
