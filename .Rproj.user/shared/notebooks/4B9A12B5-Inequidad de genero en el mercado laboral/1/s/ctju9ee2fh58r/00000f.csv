@@ -1,0 +1,6 @@
+"0","# e) Conformacion de parejas dentro del hogar"
+"0","sjt.xtab(proc_base$pareja, proc_base$Salario,"
+"0","         show.col.prc=TRUE,"
+"0","         show.summary=FALSE,"
+"0","         encoding = ""UTF-8"""
+"0",")"

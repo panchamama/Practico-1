@@ -1,0 +1,8 @@
+"0","CASEN_hombres <- CASEN_hombres %>% select(jefe_h,"
+"0","                                pareja,"
+"0","                                mp_vivienda,"
+"0","                                trbj,"
+"0","                                `trbj_no formal`,"
+"0","                                horas_trbj,"
+"0","                                Salario)  %>%"
+"0","  mutate_all(~(as.numeric(.))) # Convertimos todas las variables a numéricas"

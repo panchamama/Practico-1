@@ -1,0 +1,6 @@
+"0","# b) Realizo trabajo de manera informal"
+"0","sjt.xtab(proc_base$`trbj_no formal`, proc_base$sexo,"
+"0","         show.col.prc=TRUE,"
+"0","         show.summary=FALSE,"
+"0","         encoding = ""UTF-8"""
+"0",")"

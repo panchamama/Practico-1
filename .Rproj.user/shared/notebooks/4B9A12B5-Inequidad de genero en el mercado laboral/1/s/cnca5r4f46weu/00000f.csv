@@ -1,0 +1,6 @@
+"0","# f) El padre o la madre viven en la vivienda"
+"0","sjt.xtab(proc_base$mp_vivienda, proc_base$Salario,"
+"0","         show.col.prc=TRUE,"
+"0","         show.summary=FALSE,"
+"0","         encoding = ""UTF-8"""
+"0",")"
