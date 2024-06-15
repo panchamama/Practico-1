@@ -2,7 +2,9 @@
 # Francisca Apablaza #
 # Participacion en el mercado laboral #
 
-# Este Scrip es para recodificar la base de datos CASEN y las variables seleccionadas para el presente trabajo #
+# El presente Scrip es la preparacion de la base de datos CASEN #
+# realizando la seleccion de variable y recodificarlas, de esta #
+# forma trabajar solo con o necesario para el trabajo. :) #
 
 # 1. Instalacion de paquetes # ----
 install.packages("pacman")
@@ -29,14 +31,13 @@ proc_base <- CASEN %>% select(edad, # Edad
                               o20, #Jornada laboral
                               o21, #Tipo de horario
                               y1, # Sueldo
-                              s5, # Tiene hijos
                               r1a, # Pais de nacionalidad
                               r3) # Pertenece a algun pueblo indigena
                               
 names(proc_base) #comprobacion
 sjlabelled::get_label(proc_base) #atributo de la variable
 
-# 4.1 Renombramiento de las variables # ----
+## 4.1 Renombramiento de las variables ## ----
 proc_base <- proc_base %>% rename("educ"=e6a_no_asiste, # Nivel educacional
                                   "trabajo"=o1, # Tiene trabajo formal
                                   "trabajo_informal"=o2, # Tiene trabajo informal
@@ -47,12 +48,11 @@ proc_base <- proc_base %>% rename("educ"=e6a_no_asiste, # Nivel educacional
                                   "jornada_labora"=o20, # Jornada laboral
                                   "horario_trabajo"=o21, # Horario laboral
                                   "sueldo"=y1, # Sueldo
-                                  "hijos"=s5, # Tiene hijos
                                   "nacionalidad"=r1a, # Pais de nacionalidad
                                   "pueblo_originario"=r3) # Pertenece a algun pueblo originario
 names(proc_base)
 
-# 4.2 Re-etiquetado de las variables # ----
+## 4.2 Re-etiquetado de las variables ## ----
 proc_base$sexo <- set_label(x = proc_base$sexo, label = "Sexo")
 get_label(proc_base$sexo)
 
@@ -89,16 +89,13 @@ get_label(proc_base$horario_trabajo)
 proc_base$sueldo <- set_label(x = proc_base$sueldo, label = "Sueldo mensual")
 get_label(proc_base$sueldo)
 
-proc_base$hijos <- set_label(x = proc_base$hijos, label = "Tiene hijos")
-get_label(proc_base$hijos)
-
 proc_base$nacionalidad <- set_label(x = proc_base$nacionalidad, label = "Pais de nacionalidad")
 get_label(proc_base$nacionalidad)
 
 proc_base$pueblo_originario <- set_label(x = proc_base$pueblo_originario, label = "Pertenece a algun pueblo originario")
 get_label(proc_base$pueblo_originario)
 
-# 4.3 Recodificacion casos perdidos NA # ----
+## 4.3 Recodificacion casos perdidos NA ## ----
 
 frq(proc_base$edad) # No es necesario recodificar
 frq(proc_base$sexo) # No es necesario recodificar
@@ -131,185 +128,87 @@ frq(proc_base$sueldo) # Si es necesario recodificar -88
 proc_base$sueldo <- recode(proc_base$sueldo, "c(-88)=NA")
 proc_base$sueldo <- as.numeric(factor(proc_base$sueldo))
 
-frq(proc_base$hijos) # Si es necesario recodificar
-proc_base$hijos <- recode(proc_base$hijos, "c(-88)=NA")
-proc_base$hijos <- as.numeric(factor(proc_base$hijos))
-
 frq(proc_base$nacionalidad) # No es necesario recodificar
 frq(proc_base$pueblo_originario) # No es necesario recodificar
 
 # 5. Recodificacion de las variables # ----
-names(proc_base)
-# Sexo # XXXXXXXX
+
+## Sexo ##
 frq(proc_base$sexo) #Descriptivo
 proc_base$sexo <- recode(proc_base$sexo, "1=1; 2=0") 
 proc_base$sexo <- factor(proc_base$sexo, levels = c("0", "1"), labels = c("Mujer", "Hombre")) #Recodificar
 summary(proc_base$sexo) #Cornfirmacion
 
-# Nivel educacion # XXXXXXXXXX
+## Nivel educacion ## 
 frq(proc_base$educ) #Descriptivo
 proc_base$educ <- recode(proc_base$educ, "1=0; 2:7=1; 8:11=2; 12:13=3; 14:15=4") 
 proc_base$educ <- factor(proc_base$educ, levels = c("0", "1", "2", "3", "4"), labels = c("Sin estudios", "Educacion basica", "Educacion media", "Educacion superior", "Postgrados")) #Recodificar
 summary(proc_base$educ) #Confirmacion
 
-# Trabajo formal # XXXXXXXXXXXXXXXXX
+## Trabajo formal ## 
 frq(proc_base$trabajo) #Descriptivo
 proc_base$trabajo <- recode(proc_base$trabajo, "1=1; 2=0") 
-proc_base$trabajo <- factor(proc_base$trabajo, levels = c("0", "1"), labels = c("Trabaja", "No trabaja")) #Recodificar
+proc_base$trabajo <- factor(proc_base$trabajo, levels = c("0", "1"), labels = c("No trabaja", "Trabaja")) #Recodificar
 summary(proc_base$trabajo) #Confirmacion
 
-# Trabajo informal # XXXXXXXXXXXXXXXXX
+## Trabajo informal ## 
 frq(proc_base$trabajo_informal) #Descriptivo
 proc_base$trabajo_informal <- recode(proc_base$trabajo_informal, "1=1; 2=0") 
-proc_base$trabajo_informal <- factor(proc_base$trabajo_informal, levels = c("0", "1"), labels = c("Trabaja", "No trabaja")) #Recodificar
+proc_base$trabajo_informal <- factor(proc_base$trabajo_informal, levels = c("0", "1"), labels = c("No trabaja", "Trabaja")) #Recodificar
 summary(proc_base$trabajo_informal) #Confirmacion
 
-# Porque no busco trabajo # XXXXXXXXXXXXXXXXXXXXXX
+## Porque no busco trabajo ## 
 frq(proc_base$busqueda_trabajo) #Descriptivo
 proc_base$busqueda_trabajo <- recode(proc_base$busqueda_trabajo, "c(1,2,6,7,8,9,11,12,13,14,15,16,17,18,19)=0; c(3,4,5,10)=1") 
 proc_base$busqueda_trabajo <- factor(proc_base$busqueda_trabajo, levels = c("0", "1"), labels = c("Otro motivo", "Razones de cuidado")) #Recodificar
 summary(proc_base$busqueda_trabajo) #Confirmacion
 
-# Horas trabajadas semanalmente # 
+## Horas trabajadas semanalmente ##
 frq(proc_base$horas_trabajo) #Descriptivo
 proc_base$horas_trabajo <- recode(proc_base$horas_trabajo, "1:20=0; 21:40=0.5; 41:92=1") 
+proc_base$horas_trabajo <- factor(proc_base$horas_trabajo, levels = c("0", "0.5", "1"), labels = c("Inf promedio", "Promedio", "Sup promedio")) #Recodificar
 summary(proc_base$horas_trabajo) #Confirmacion
 
-#  #
+## Tipo de permanencia en el trabajo ##
 frq(proc_base$tipo_trabajo) #Descriptivo
-proc_base$tipo_trabajo <- recode(proc_base$tipo_trabajo, "1=1; 2=0") 
-proc_base$trabajo_informal <- factor(proc_base$trabajo_informal, levels = c("0", "1"), labels = c("Trabaja", "No trabaja")) #Recodificar
-summary(proc_base$trabajo_informal) #Confirmacion
+proc_base$tipo_trabajo <- recode(proc_base$tipo_trabajo, "1=1; c(2,5)=0.5; c(3,4)=0") 
+summary(proc_base$tipo_trabajo) #Confirmacion
 
-## 5.3 Brecha salarial ## ----
-frq(proc_base$y1) #Descriptivo
-proc_base$y1 <- recode(proc_base$y1, "c(-88)=NA")#Recodificacion
-proc_base$y1 <- recode(proc_base$y1, "209000:326200=1; 326920:1000000=2; 1000050:25000000=3; 0:208000=0")
-proc_base$y1 <- set_labels(proc_base$y1,
-                           labels=c( "Sueldo inf"=1,
-                                     "Sueldo pro"=2,
-                                     "Sueldo sup"=3,
-                                     "Sin sueldo"=0))
-summary(proc_base$y1) #Cornfirmacion
+## Tipo de contrato ##
+frq(proc_base$contrato) #Descriptivo
+proc_base$contrato <- recode(proc_base$contrato, "1=1; 2=0.5; 3=0") 
+summary(proc_base$contrato) #Confirmacion
 
-#Etiquetado
-proc_base <- proc_base %>% rename("Salario"=y1) #Salario 
+## Jornada laboral ##
+frq(proc_base$jornada_labora) #Descriptivo
+proc_base$jornada_labora <- recode(proc_base$jornada_labora, "1=1; 2:3=0.5; 4=0") 
+summary(proc_base$jornada_labora) #Confirmacion
 
-## 5.4 Sexo ## ----
-frq(proc_base$sexo) #Descriptivo
-proc_base$sexo <- car::recode(proc_base$sexo, "1=0;2=1")
-proc_base$sexo <- factor(proc_base$sexo,
-                         labels=c( "Hombre",
-                                   "Mujer"),
-                         levels=c(0,1))
-get_label(proc_base$sexo)
-frq(proc_base$sexo)
-summary(proc_base$sexo) #Cornfirmacion
+## Horario de trabajo ##
+frq(proc_base$horario_trabajo) #Descriptivo
+proc_base$horario_trabajo <- recode(proc_base$horario_trabajo, "1=1; 2=0.5; 3=0") 
+summary(proc_base$horario_trabajo) #Confirmacion
 
-# 6. Analisis de las variables  # ----
+## Salario mensual ## 
+frq(proc_base$sueldo) #Descriptivo
+proc_base$sueldo <- recode(proc_base$sueldo, "1:500=0; 501:899=0.5; 900:1185=1") 
+proc_base$sueldo <- factor(proc_base$sueldo, levels = c("0", "0.5", "1"), labels = c("Menos del salario minimo", "Salario promedio", "Salario sobre el promedio")) #Recodificar
+summary(proc_base$sueldo) #Confirmacion
 
-## 6.1 Revicion descriptiva de los datos ## ----
-names(proc_base) # Muestra los nombres de las variables de la base de datos
-dim(proc_base) # Dimensiones
-sjmisc::descr(proc_base,
-              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
-              kable(.,"markdown")
-summarytools::dfSummary(proc_base, plain.ascii = FALSE)
-view(dfSummary(proc_base, headings=FALSE))
+## Nacionalidad ##
+frq(proc_base$nacionalidad) #Descriptivo
+proc_base$nacionalidad <- recode(proc_base$nacionalidad, "1:2=0 ; 3=1") 
+proc_base$nacionalidad <- factor(proc_base$nacionalidad, levels = c("0", "1"), labels = c("Chilena", "Extranjera")) #Recodificar
+summary(proc_base$nacionalidad) #Confirmacion
 
-## 6.2 Visualizacion de variables ## ----
+## Pueblo originario ##
+frq(proc_base$pueblo_originario) #Descriptivo
+proc_base$pueblo_originario <- recode(proc_base$pueblo_originario, "1:10=1; 11=0") 
+proc_base$pueblo_originario <- factor(proc_base$pueblo_originario, levels = c("0", "1"), labels = c("No pertenece a pueblo originario", "Pertenece a pueblo originario")) #Recodificar
+summary(proc_base$pueblo_originario) #Confirmacion
 
-### Participacion en el mercado laboral ### ----
-# a) Realizo trabajo, sin contar trabajo en el hogar 
-sjt.xtab(proc_base$trbj, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
+# 6. Guardar base de datos recodificada # ----
+proc_base <-as.data.frame(proc_base)
+stargazer(proc_base, type="text") # Revision de variables con tabla descriptiva
 
-# b) Realizo trabajo de manera informal
-sjt.xtab(proc_base$`trbj_no formal`, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-# c) Cuantas horas trabajo a la semana
-sjt.xtab(proc_base$horas_trbj, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-### Rol de la familia ### ----
-# d) Jefe de hogar
-sjt.xtab(proc_base$jefe_h, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-# e) Conformacion de parejas dentro del hogar
-sjt.xtab(proc_base$pareja, proc_base$trbj,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-# f) El padre o la madre viven en la vivienda
-sjt.xtab(proc_base$mp_vivienda, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-# g) Razon de la no busqueda de trabjao
-sjt.xtab(proc_base$busqueda_trbj, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-### Brecha salarial ### ----
-# h) Salario
-# Crear el gráfico usando ggplot2
-sjt.xtab(proc_base$Salario, proc_base$sexo,
-         show.col.prc=TRUE,
-         show.summary=FALSE,
-         encoding = "UTF-8"
-)
-
-graph8 <- proc_base %>% ggplot(aes(x = Salario, fill = sexo)) + 
-  geom_bar() +
-  xlab("Salario") +
-  ylab("Cantidad") + 
-  labs(fill="Sexo")+
-  scale_fill_discrete(labels = c('Hombre','Mujer'))
-
-graph8
-ggsave(graph8, file="3. output/graph8.png")
-
-# 7. Guardar # ----
-save(proc_base,file = "1. input/CASEN_recod.rdata")
-
-# 5. Guardar base de datos # ----
-# 5.1 Guardar base de datos para escala #
-casen_esca <- select(proc_base, 
-                     trabajo,
-                     trabajo_informal,
-                     horas_trabajo,
-                     tipo_trabajo,
-                     contrato,
-                     jornada_labora,
-                     horario_trabajo,
-                     sueldo)
-
-casen_esca <- as.data.frame(casen_esca) # Reformatear objeto#
-
-save(casen_esca, file = "1. input/casen_esca.rdata") # Guardar base de datos para la escala #
-
-# 5.2 Guardar base de datos regresion #
-casen_reg <- proc_base %>% select(proc_base, edad, sexo, e6a_no_asiste)
-
-
-
+save(proc_base,file = "1. input/casen_rec.rdata") # Guardar base de datos recodificada

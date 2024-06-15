@@ -3,7 +3,7 @@
     "path": "~/GitHub/Practico-1/2. proc/Scrip1 (recodificacion).R",
     "project_path": "2. proc/Scrip1 (recodificacion).R",
     "type": "r_source",
-    "hash": "2383804296",
+    "hash": "202907808",
     "contents": "",
     "dirty": false,
     "created": 1718340351098.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "183,0",
-        "scrollLine": "166"
+        "cursorPosition": "213,86",
+        "scrollLine": "0"
     },
-    "folds": "10|21|13|0|\n14|21|17|0|\n18|30|37|0|\n38|40|53|0|\n54|39|99|0|\n100|41|139|0|\n183|26|196|0|\n197|15|207|0|\n208|34|209|0|\n210|44|218|0|\n219|37|220|0|\n221|44|242|0|\n243|26|271|0|\n272|24|290|0|\n291|15|293|0|\n294|29|315|0|\n",
-    "lastKnownWriteTime": 1718395749,
+    "folds": "8|31|11|0|\n12|21|15|0|\n16|21|19|0|\n20|30|38|0|\n39|42|53|0|\n54|41|96|0|\n97|43|132|0|\n133|39|208|0|\n209|42|213|86|\n",
+    "lastKnownWriteTime": 1718483710,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1718395749221,
+    "last_content_update": 1718483726192,
     "read_only": false,
     "read_only_alternatives": []
 }
