@@ -11,9 +11,30 @@
 #También se espera que sean capaces de elaborar dos gráficos descriptivos que permitan 
 #visualizar la distribución de las principales variables de interés.
 
-# 1. Cargar paquetes #
-##
-##
+# 0. Pasos previos # ----
+rm(list = ls()) #limpiar area de trabajo
+options(scipen = 999) #desactivar notacion cientifica
+
+# 1. Cargar paquetes # ----
+pacman::p_load(sjlabelled, dplyr, stargazer, sjmisc, summarytools, kableExtra, sjPlot, corrplot, sessioninfo, ggplot2)
+
+# Cargar base de datos # ----
+
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
+# La base de datos recodificada, esta cargada desde internet.
+names(proc_base)
+dim(proc_data)
+
+# 2. Descripcion de las variables #
+stargazer(proc_data,type = "text") # Ideal para metodologia 
+
+sjmisc::descr(proc_data)
+
+sjmisc::descr(proc_data,
+              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+  kable(.,"markdown")
+
+summarytools::dfSummary(proc_data, plain.ascii = FALSE)
 ##
 ##
 

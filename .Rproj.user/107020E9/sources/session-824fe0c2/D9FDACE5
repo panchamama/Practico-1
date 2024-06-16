@@ -1,0 +1,26 @@
+{
+    "id": "D9FDACE5",
+    "path": "~/GitHub/Practico-1/2. proc/Scrip2 (analisis de variables).R",
+    "project_path": "2. proc/Scrip2 (analisis de variables).R",
+    "type": "r_source",
+    "hash": "3589340796",
+    "contents": "",
+    "dirty": false,
+    "created": 1718483955182.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "36,55",
+        "scrollLine": "9"
+    },
+    "folds": "13|21|16|0|\n17|23|19|0|\n",
+    "lastKnownWriteTime": 1718496468,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1718496468695,
+    "read_only": false,
+    "read_only_alternatives": []
+}
