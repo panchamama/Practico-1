@@ -3,7 +3,7 @@
     "path": "~/GitHub/Practico-1/2. proc/Scrip1 (recodificacion).R",
     "project_path": "2. proc/Scrip1 (recodificacion).R",
     "type": "r_source",
-    "hash": "2486430974",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1718496042985.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "211,86",
+        "cursorPosition": "34,69",
         "scrollLine": "0"
     },
-    "folds": "8|31|11|0|\n12|21|15|0|\n16|21|19|0|\n20|30|38|0|\n39|42|53|0|\n54|41|96|0|\n97|43|132|0|\n133|39|208|0|\n209|42|211|86|\n",
+    "folds": "8|31|11|0|\n12|21|15|0|\n16|21|19|0|\n39|42|53|0|\n54|41|96|0|\n97|43|132|0|\n133|39|208|0|\n209|42|211|86|\n",
     "lastKnownWriteTime": 1718496976,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1718496976731,
+    "last_content_update": 1718498615294,
     "read_only": false,
     "read_only_alternatives": []
 }

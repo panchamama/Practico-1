@@ -3,7 +3,7 @@
     "path": "~/GitHub/Practico-1/2. proc/Scrip2 (analisis de variables).R",
     "project_path": "2. proc/Scrip2 (analisis de variables).R",
     "type": "r_source",
-    "hash": "3589340796",
+    "hash": "1206755820",
     "contents": "",
     "dirty": false,
     "created": 1718483955182.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "36,55",
-        "scrollLine": "9"
+        "cursorPosition": "16,0",
+        "scrollLine": "0"
     },
-    "folds": "13|21|16|0|\n17|23|19|0|\n",
+    "folds": "13|21|16|0|\n17|23|19|0|\n20|28|25|0|\n26|36|36|0|\n37|47|48|0|\n49|34|56|0|\n",
     "lastKnownWriteTime": 1718496468,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1718496468695,
+    "last_content_update": 1718500650570,
     "read_only": false,
     "read_only_alternatives": []
 }

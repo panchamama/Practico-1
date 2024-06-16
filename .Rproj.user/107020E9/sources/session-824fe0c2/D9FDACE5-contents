@@ -18,35 +18,60 @@ options(scipen = 999) #desactivar notacion cientifica
 # 1. Cargar paquetes # ----
 pacman::p_load(sjlabelled, dplyr, stargazer, sjmisc, summarytools, kableExtra, sjPlot, corrplot, sessioninfo, ggplot2)
 
-# Cargar base de datos # ----
-
+# 2. Cargar base de datos # ----
 load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
 # La base de datos recodificada, esta cargada desde internet.
 names(proc_base)
-dim(proc_data)
+dim(proc_base)
 
-# 2. Descripcion de las variables #
-stargazer(proc_data,type = "text") # Ideal para metodologia 
+# 3. Descripcion de las variables # ----
 
-sjmisc::descr(proc_data)
+sjmisc::descr(proc_base)
 
-sjmisc::descr(proc_data,
-              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
-  kable(.,"markdown")
-
-summarytools::dfSummary(proc_data, plain.ascii = FALSE)
-##
-##
-
-# Analisis de las variables  #
-## 6.1 Revicion descriptiva de los datos ## ----
-names(proc_base) # Muestra los nombres de las variables de la base de datos
-dim(proc_base) # Dimensiones
 sjmisc::descr(proc_base,
               show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
   kable(.,"markdown")
+
 summarytools::dfSummary(proc_base, plain.ascii = FALSE)
-view(dfSummary(proc_base, headings=FALSE))
+view(dfSummary(proc_base, headings=FALSE)) # Visualizar mejor
+
+# 4. Seleccion de variables para el analisis # ----
+names(proc_base)
+casen1 <- proc_base %>% select(edad, # Edad
+                               sexo, # Sexo
+                               trabajo, # Trabajo formalmente 
+                               trabajo_informal, # Trabajo informal
+                               busqueda_trabajo, # Razon por la cual no busco trabajo
+                               horas_trabajo, # Horas trabajadas
+                               sueldo, # Sueldo mendual
+                               nacionalidad, # Pais de nacionalidad
+                               pueblo_originario) # Pertenece a algun pueblo indigena
+
+# 5. Casos perdidos # *PENDIENTE* ---- 
+casen1_original <-casen1 # Respaldamos la base recodificada original
+dim(casen1) # Confirmamos los casos
+sum(is.na(casen1)) #Vemos los casos perdidos
+casen1 <-na.omit(casen1) # Borramos los casos perdidos
+dim(casen1)
+casen1 <-sjlabelled::copy_labels(casen1,casen1_original) # Recuperamos las lineas eliminadas
+
+# 6. Visualizacion de las variables # ----
+names(casen1)
+
+## Participacion de trabajos formales ##
+## Participacion de trabajos informales ##
+
+## Empedimento para buscar trabajo ##
+proc_data %>% ggplot(aes(x = conf_inst)) + 
+  geom_bar(fill = "coral")+
+  labs(title = "Confianza en instituciones",
+       x = "Confianza en instituciones",
+       y = "Frecuencia")
+
+## Horas trabajadas ##
+## Ingreso de sueldo mensual ##
+
+# Analisis de las variables  #
 
 ## 6.2 Visualizacion de variables ## ----
 
@@ -119,6 +144,3 @@ graph8 <- proc_base %>% ggplot(aes(x = Salario, fill = sexo)) +
 
 graph8
 ggsave(graph8, file="3. output/graph8.png")
-
-# 7. Guardar # ----
-save(proc_base,file = "1. input/CASEN_recod.rdata")
