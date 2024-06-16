@@ -208,7 +208,5 @@ proc_base$pueblo_originario <- factor(proc_base$pueblo_originario, levels = c("0
 summary(proc_base$pueblo_originario) #Confirmacion
 
 # 6. Guardar base de datos recodificada # ----
-proc_base <-as.data.frame(proc_base)
-stargazer(proc_base, type="text") # Revision de variables con tabla descriptiva
 
 save(proc_base,file = "1. input/casen_rec.rdata") # Guardar base de datos recodificada
