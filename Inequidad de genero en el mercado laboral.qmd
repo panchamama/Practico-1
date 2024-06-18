@@ -7,7 +7,7 @@ bibliography: Inequidades de genero en el mercado laboral.bib
 link-citations: true
 ---
 
-## Inequidad de género en el mercado laboral
+## Participación en el mercado laboral
 
 #### Introducción
 

@@ -208,5 +208,5 @@ proc_base$pueblo_originario <- factor(proc_base$pueblo_originario, levels = c("0
 summary(proc_base$pueblo_originario) #Confirmacion
 
 # 6. Guardar base de datos recodificada # ----
-
-save(proc_base,file = "1. input/casen_rec.rdata") # Guardar base de datos recodificada
+casen_rec <- proc_base
+save(casen_rec,file = "1. input/casen_rec.rdata") # Guardar base de datos recodificada
