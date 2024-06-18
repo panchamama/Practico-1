@@ -15,24 +15,24 @@ options(scipen = 999) # para desactivar notacion cientifica
 
 ## 2. Cargar base de datos rocodificada ## ----
 load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
-dim(proc_base)
-View(proc_base)
-names(proc_base)
+dim(casen_rec)
+View(casen_rec)
+names(casen_rec)
 
 # 3. Seleccion de variables # ----
-casen2 <- proc_base %>% select(edad, # Edad
-                               sexo, # Sexo
-                               educ, # Nivel educacional mas alto al cual asistio
-                               trabajo, # Trabajo
-                               trabajo_informal, # Trabajo informal
-                               horas_trabajo, # Horas trabajadas
-                               tipo_trabajo, # Su trabajo es de tipo
-                               contrato, # Tipo de contrato
-                               jornada_labora, #Jornada laboral
-                               horario_trabajo, #Tipo de horario
-                               sueldo, # Sueldo
-                               nacionalidad, # Pais de nacionalidad
-                               pueblo_originario) # Pertenece a algun pueblo indigena
+casen <- proc_base %>% select(edad, # Edad
+                              sexo, # Sexo
+                              educ, # Nivel educacional mas alto al cual asistio
+                              trabajo, # Trabajo
+                              trabajo_informal, # Trabajo informal
+                              horas_trabajo, # Horas trabajadas
+                              tipo_trabajo, # Su trabajo es de tipo
+                              contrato, # Tipo de contrato
+                              jornada_labora, #Jornada laboral
+                              horario_trabajo, #Tipo de horario
+                              sueldo, # Sueldo
+                              nacionalidad, # Pais de nacionalidad
+                              pueblo_originario) # Pertenece a algun pueblo indigena
 
 # En este Scrip no trabajare con todas las variables seleccionadas, si no solo con
 # las cuales pueda construir la escala, sin embargo seleccione otras para almomento de

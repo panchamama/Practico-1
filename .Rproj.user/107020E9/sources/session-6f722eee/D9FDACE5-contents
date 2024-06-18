@@ -24,18 +24,10 @@ load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec
 names(casen_rec)
 dim(casen_rec)
 
-# 3. Descripcion de las variables # ----
+## 2.1 Recodificar base por edad ##
+casen_rec <- casen_rec %>% dplyr:: filter(edad >= 18 & edad <= 65)
 
-sjmisc::descr(casen_rec)
-
-sjmisc::descr(casen_rec,
-              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
-  kable(.,"markdown")
-
-summarytools::dfSummary(casen_rec, plain.ascii = FALSE)
-view(dfSummary(casen_rec, headings=FALSE)) # Visualizar mejor
-
-# 4. Seleccion de variables para el analisis # ----
+# 3. Seleccion de variables para el analisis # ----
 names(casen_rec)
 casen <- casen_rec %>% select(edad, # Edad
                               sexo, # Sexo
@@ -47,6 +39,17 @@ casen <- casen_rec %>% select(edad, # Edad
                               nacionalidad, # Pais de nacionalidad
                               pueblo_originario) # Pertenece a algun pueblo indigena
 
+# 4. Descripcion de las variables # ----
+
+sjmisc::descr(casen_rec)
+
+sjmisc::descr(casen_rec,
+              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+  kable(.,"markdown")
+
+summarytools::dfSummary(casen_rec, plain.ascii = FALSE)
+view(dfSummary(casen_rec, headings=FALSE)) # Visualizar mejor
+
 # 5. Visualizacion de las variables # ----
 names(casen)
 
@@ -56,11 +59,18 @@ names(casen)
 ## Participacion de trabajos informales ##
 
 ## Empedimento para buscar trabajo ##
-proc_data %>% ggplot(aes(x = conf_inst)) + 
+frq(casen$busqueda_trabajo)
+graph1 <- casen %>%
+  filter(!is.na(busqueda_trabajo)) %>% 
+  ggplot(aes(x = busqueda_trabajo)) + 
   geom_bar(fill = "coral")+
   labs(title = "Confianza en instituciones",
-       x = "Confianza en instituciones",
+       x = "Razones porque no busca trabajo",
        y = "Frecuencia")
+
+graph1
+ggsave(graph1, file(x))
+
 
 ## Horas trabajadas ##
 ## Ingreso de sueldo mensual ##

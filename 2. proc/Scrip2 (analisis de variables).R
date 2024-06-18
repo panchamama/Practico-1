@@ -21,52 +21,56 @@ pacman::p_load(sjlabelled, dplyr, stargazer, sjmisc, summarytools, kableExtra, s
 # 2. Cargar base de datos # ----
 load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
 # La base de datos recodificada, esta cargada desde internet.
-names(proc_base)
-dim(proc_base)
+names(casen_rec)
+dim(casen_rec)
 
-# 3. Descripcion de las variables # ----
+## 2.1 Recodificar base por edad ##
+casen_rec <- casen_rec %>% dplyr:: filter(edad >= 18 & edad <= 65)
 
-sjmisc::descr(proc_base)
+# 3. Seleccion de variables para el analisis # ----
+names(casen_rec)
+casen <- casen_rec %>% select(edad, # Edad
+                              sexo, # Sexo
+                              trabajo, # Trabajo formalmente 
+                              trabajo_informal, # Trabajo informal
+                              busqueda_trabajo, # Razon por la cual no busco trabajo
+                              horas_trabajo, # Horas trabajadas
+                              sueldo, # Sueldo mendual
+                              nacionalidad, # Pais de nacionalidad
+                              pueblo_originario) # Pertenece a algun pueblo indigena
 
-sjmisc::descr(proc_base,
+# 4. Descripcion de las variables # ----
+
+sjmisc::descr(casen_rec)
+
+sjmisc::descr(casen_rec,
               show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
   kable(.,"markdown")
 
-summarytools::dfSummary(proc_base, plain.ascii = FALSE)
-view(dfSummary(proc_base, headings=FALSE)) # Visualizar mejor
+summarytools::dfSummary(casen_rec, plain.ascii = FALSE)
+view(dfSummary(casen_rec, headings=FALSE)) # Visualizar mejor
 
-# 4. Seleccion de variables para el analisis # ----
-names(proc_base)
-casen1 <- proc_base %>% select(edad, # Edad
-                               sexo, # Sexo
-                               trabajo, # Trabajo formalmente 
-                               trabajo_informal, # Trabajo informal
-                               busqueda_trabajo, # Razon por la cual no busco trabajo
-                               horas_trabajo, # Horas trabajadas
-                               sueldo, # Sueldo mendual
-                               nacionalidad, # Pais de nacionalidad
-                               pueblo_originario) # Pertenece a algun pueblo indigena
+# 5. Visualizacion de las variables # ----
+names(casen)
 
-# 5. Casos perdidos # *PENDIENTE* ---- 
-casen1_original <-casen1 # Respaldamos la base recodificada original
-dim(casen1) # Confirmamos los casos
-sum(is.na(casen1)) #Vemos los casos perdidos
-casen1 <-na.omit(casen1) # Borramos los casos perdidos
-dim(casen1)
-casen1 <-sjlabelled::copy_labels(casen1, casen1_original) # Recuperamos las lineas eliminadas
 
-# 6. Visualizacion de las variables # ----
-names(casen1)
 
 ## Participacion de trabajos formales ##
 ## Participacion de trabajos informales ##
 
 ## Empedimento para buscar trabajo ##
-proc_data %>% ggplot(aes(x = conf_inst)) + 
+frq(casen$busqueda_trabajo)
+graph1 <- casen %>%
+  filter(!is.na(busqueda_trabajo)) %>% 
+  ggplot(aes(x = busqueda_trabajo)) + 
   geom_bar(fill = "coral")+
   labs(title = "Confianza en instituciones",
-       x = "Confianza en instituciones",
+       x = "Razones porque no busca trabajo",
        y = "Frecuencia")
+
+graph1
+ggsave(graph1, file(x))
+
 
 ## Horas trabajadas ##
 ## Ingreso de sueldo mensual ##
