@@ -1,0 +1,351 @@
+---
+title: "Trabajo"
+author: "Francisca Apablaza"
+format: html
+editor: visual
+bibliography: Inequidades de genero en el mercado laboral.bib
+link-citations: true
+---
+
+## Participación en el mercado laboral
+
+#### Introducción
+
+En el presente trabajo abordare la inequidad de género específicamente en el mercado laboral. Analizando que elementos podrían afectar en el desarrollo desigual entre hombres y mujeres dentro del mercado laboral. El principal tema que surge cuando hablamos de una desigualdad de género en el trabajo, es la brecha salarial. Sin embargo, quisiera adentrarme en las relaciones que existen dentro de esta esfera y que podrían afectar como cada persona experimenta el mercado laboral.
+
+Existen diversos estudios sobre la inequidad de género y aun así los estudios sobre la mujer integrada en el sistema laboral siguen siendo uno de los más relevantes, [@defanelliPatronesDesigualdadSocial1989]. Quisiera detenerme en dos puntos para explicar la relevancia del tema. El primer punto es sobre la importancia de la esfera económica para la subsistencia del individuo, ya que parece algo obvio pero el salario que obtenemos de nuestro trabajo es lo que nos permite desarrollarnos en otros ámbitos, sin embargo y esto es parte de lo que analizare, este salario es diferente entre hombres y mujeres por el mismo trabajo realizado. Y esto es un problema, [ver @nietoDiscriminacionDiferencialesSalarios2016].
+
+El segundo punto es sobre las formas de relación que existen en el mercado laboral y que implicancias trae para las mujeres, ¿optamos a los mismos puestos que los hombres?, ¿cuántas horas le dedicamos al trabajo?, ¿cuántas mujeres están integradas en el mercado laboral? [@delattesEmpleoFemeninoDesarrollo1977]. Y más preguntas que podemos realizarnos, para dilucidar como es la relación de las mujeres dentro del mercado laboral a diferencia de los hombres. En otras palabras, que valor tiene la mujer para el mercado laboral.
+
+Pero antes qué es el mercado laboral, en este estudio me referiré a las ofertas laborales específicamente del trabajo asalariado, no con intención de invisibilizar las otras manifestaciones de trabajo, si no para poder acotar y contextualizar el problema de estudio que ya de por si cuenta con varias aristas. Entonces esta incorporación de la mujer al mundo laboral debió haber sido un momento revolucionario de autonomía para cada mujer, sin embargo, no todo puede ser color de rosas, y dejo en evidencia una problemática sistemática de una sociedad patriarcal, que existe un sesgo de género, en la retribución como en las interacciones en el mercado laboral, he aquí la relevancia de estudiar este tema, [ver @abramoInsercionLaboralMujeres2004].
+
+Si nos ponemos a analizar el mercado laboral no tardamos en darnos cuenta que es un mercado desigual, y esto a simple vista no tiene porque ser un problema, ya que no todos podemos ofrecer la misma fuerza de trabajo, y no todo trabajo es retribuido de la misma forma, el conflicto en todo esto esta cuando empezamos a observar que gran parte de esta desigualdad viene por una desigualdad de clase, educación, y también género, [ver @consueloiranzoEspacioFemeninoMundo2009]. Es por esto que debemos analizar la inequidad de genero en el mercado laboral desde una perspectiva interseccional, tomando en cuenta algunos elementos que pueden afectar esta inequidad, factores como educación, si la persona esta casada o si tiene hijos.
+
+Con todo lo mencionado la hipótesis centras de este trabajo es que existe un sesgo de género que afecta de manera negativa a las mujeres en el mercado laboral, desde su inserción, su desempeño a nivel social y su retribución económica. Me centrare en 3 ejes fundamentales que ya hemos estado haciendo un acercamiento.
+
+El primero punto es sobre la brecha laboral de género, es decir si realmente hay mas hombres que mujeres en el mercado laboral, debido a que la mujer realiza mas trabajos informales que los hombres, como el trabajo doméstico no remunerado, deberíamos ver una diferencia en la participación de ambos actores en el trabajo asalariado, [ver @nietoDiscriminacionDiferencialesSalarios2016].
+
+El segundo punto que analizare, es el rol que cumple la familia, es decir mujeres casadas y con hijos en comparación a hombres. En este punto me interesa abordarlo, debido a lo que mencione anteriormente, ya que la mujer se ve enfrentadas a otras tareas que puede diferenciarla al momento de integrarse al mercado laboral [ver @defanelliPatronesDesigualdadSocial1989].
+
+Y por último, analizare la brecha salarial, si existe diferencia en los ingresos de hombres y mujeres, ver [@nietoDiscriminacionDiferencialesSalarios2016]. Por la naturaleza de la base de datos a analizar puede que se manifieste en el ingreso por hogar y la configuración de esos hogares es decir cuando la mujer es jefe de hogar a deferencia de cuando lo es un hombre o si hay algun otro elemento que influya en el salario.
+
+Me interesa centrarme en estas 3 aristas para poder realizar un radiografía que me permita abarcar la mayor cantidad de aspectos sobre la inequidad de genero en el mercado laboral.
+
+#### Metodología
+
+En el presente trabajo para lograr realizar un análisis estadístico de las “inequidades de genero en el mercado laboral” estaré trabajando con la base de dados de la Encuesta de Caracterización Socioeconómica Nacional, desde ahora (CASEN), la cual es una encuesta hacia los hogares realizado por el Ministerio de Desarrollo Social y Familia.
+
+Trabajare con una serie de variables que me permitan abordar las 3 aristas que propuse anteriormente, ahora bien, como primer filtro estaré trabajando la base de datos entre los rangos etarios desde los 25 años hasta los 65 años, ya que es la principal población activa, en el mercado laboral, se que en la practica esto difiere, sin embargo, por efectos prácticos del análisis, y acotar el trabajo, lo realice así.
+
+Por otro lado, el objetivo es ver como se comportan las variables en relación al género, si existe una diferencia significativa y analiza se hombres y mujeres se desarrollan distintos en el mercado laboral. Para esto cada variable será cruzada con la variable de sexo.
+
+#### Analisis de datos
+
+##### Cargar paquetes:
+
+```{r}
+pacman::p_load(sjlabelled,
+               dplyr, #Manipulacion de datos
+               stargazer, #Tablas
+               sjmisc, # Tablas
+               summarytools, # Tablas
+               kableExtra, #Tablas
+               sjPlot, #Tablas y gráficos
+               corrplot, # Correlaciones
+               sessioninfo, # Información de la sesión de trabajo
+               ggplot2) # Para la mayoría de los gráficos
+```
+
+##### Cargar base de datos:
+
+```{r}
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_recod.rdata"))
+```
+
+```{r}
+dim(proc_base)
+names(proc_base)
+```
+
+```{r}
+sjmisc::descr(proc_base,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+      kable(.,"markdown")
+```
+
+En este análisis como mencione me encuentro trabajando con la base de datos CASEN, sin embargo, en esta presentación ya podemos ver la base de datos modificada. Contamos con una cantidad de casos de 107.726. Primero seleccione variables que me permitieran abordar los 3 aspectos de la inequidad de género, que decidí analizar y las etiquete. Obteniendo:
+
+-   Edad -\> edad
+
+-   sexo -\> sexo
+
+-   pco1_a -\> jefe_h
+
+-   h5_cp -\> pareja
+
+-   h5_10 -\> mp_vivienda
+
+-   o1 -\> trbj (Trabajo)
+
+-   o2 -\> tbj_no formal (No trabajo, pero realizo una actividad por salario)
+
+-   o10 -\> horas_trbj (¿Cuántas horas trabaja habitual mente en la semana)
+
+-   y1 -\> salario (Sueldo)
+
+A su vez la base fue filtrada por la variable edad, trabajando solo con las edades entre 25 y 65 años, considerando que es entre entas edades podriamos considerar la poblacion laboralmente activa.
+
+Respecto a lo anterior la hipótesis planteada, afirma que existen inequidades de genero en el mercado laboral y también existen factores que pueden acrecentarlo, como lo es las labores de cuidado, estar casado, y como las mujeres se ven también afectadas con una brecha salarial. [visitar: @arantzaugidosolazábal1995]. Ahora bien para poder analizar esto esta realizando cruce entre las variables, principalmetne con el genero, para analizar los resultados, si reflejan alguna inequidad.
+
+#### Analisis de variables
+
+El primer aspecto al analizar es si efectiva mente en el mercado laboral, encontramos mas la precencia de hombres que de mujeres.
+
+```{r}
+# a) Trabajo la semana pasada
+sjt.xtab(proc_base$trbj, proc_base$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Podemos ver como efectivamente la cantidad de hombres que si trabajo 78.4% versus las mujeres 52.2%, tambien lo interesante que por su contra parte, quienes no trabjaron se destaca el porcentaje de mujeres siendo de un 47.8% y los hombres solo un 21.6% no trabajaron. Ahora bien veamos que ocurre con el trabajo no formal.
+
+```{r}
+# b) Realizo trabajo de manera informal
+sjt.xtab(proc_base$`trbj_no formal`, proc_base$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Los resultados nos dicen que muy pocas personas realizaron un trabjo no formal un 3.8%, mientras que un 96.2% no lo realizo, en ambos casos las mujeres tienen mas presencia sin embargo no es una diferencia tan significativa respecto a los hombres. Ahora bien si observamos la cantidad de horas que trabajan hombres y mujeres. Lo que me interesa, es quienes trabajan menos de 8 horas, quienes trabajan 8 horas y quienes trabajan mas de 8 horas., al día.
+
+```{r}
+# c) Cuantas horas trabajo a la semana
+sjt.xtab(proc_base$horas_trbj, proc_base$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Lo primero que podemos ver es que la mayoría de los datos estan concentrados en la opción de "Trbj_8", es decir que la mayoria de las personas trabajan 8 horas, siendo los hombres por una diferencia del 4.3% más que las mujeres. Hay mas mujeres que trabajan menos de las 8 horas, vs los hombres que son quienes trabajan mas de 8 horas.
+
+Ahora bien como podemos explicar estas diferencias a la hora de participar en el mercado laboral, bueno siguiendo el hilo conductor de mi hipotesis, debemos analizar que rol cumple las relaciones en el hogar en esta participacion.
+
+```{r}
+# d) Jefe de hogar
+sjt.xtab(proc_base$jefe_h, proc_base$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Podemos ver que hay mas mujeres jafas de hogar que los hombres sin embargo, la diferencia es de un 4%, lo cual no es mucho, asu vez cuando vemos la columna de las mujeres, notamos que las mujeres que son jefas de hogar son mas que las que no, siendo una diferencia de 8%, mientras que la diferencia entre los hombres que son y no son jefes de hogar es de un 0,6%.
+
+Ahora quiero ver que ocurre cuando hay parejas que conforman el hogar y como repercute en el salario
+
+```{r}
+# e) Conformacion de parejas dentro del hogar
+sjt.xtab(proc_base$pareja, proc_base$Salario,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Lo primero que podemos apreciar es que hay mas personas sin pareja, que con pareja, donde notamos una mayor diferencia es con el parametro de sueldo promedio, donde las personas sin pareja son mucho mayores que los demas datos, ahora esta tabla no nos dice mucho. Ahora bien que ocurre con las horas destinadas al trabajo cuando hay una pareja en el hogar.
+
+```{r}
+sjt.xtab(proc_base$pareja, proc_base$horas_trbj,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+vemos que cuando se cuenta con la presencia de una pareja se concentran mucho mas en solo trabajar las 45 horas semanales (horio de oficina), sin embargo cuando no se cuenta con una pareja, trabajar menos incluso trabajar mas, son opciones que toman mas fuerza. Esto puede deberse a que la persona deben hacer mas tareas solos en el hogar o a su vez puede que tengan mas tiempo para trabajar mas.
+
+```{r}
+# f) El padre o la madre viven en la vivienda
+sjt.xtab(proc_base$mp_vivienda, proc_base$Salario,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Aquí observamos como influye la presencia de madre o padre en la vivienda, respecto al sueldo promedio vemos que tiene una gran diferencia cuando se encuentra con una madre o un padre en la vivienda, ahora vien tambien notamos que son pocas las viviendas que no cuentan con una madre o un padre en la vivienda.
+
+Hasta ahora las variables sobre el hogar no han sido muy reveladoras al respectos, sin embargo nos queda esta ultima variable respecto a las dinamicas del hogar, veamos que podemos observar.
+
+```{r}
+# g) Razon de la no busqueda de trabjao
+sjt.xtab(proc_base$busqueda_trbj, proc_base$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Esta variable nos permite analizar grandes direfencia entre hombres y mujeres, lo primero que vemos es la alta participacion de la mujer en labores de cuidado, esto si corrobora la hipotesis y deja en evidencia una desigualdad con los roles de genero.
+
+Un punto que me parece interesante es la avismal diferencia entre hombres y mujeres con los quehaceres del hogar, 6089 mujeres no han buscado trabajo por dedicarse a los quehaceres del hogar mientra que solo 159 hombres no han podido por esta misma razon.
+
+Esta diferencia demuestra que los hombre tienen menos obstaculos al momento de buscar trabjo, mientras que las mujeres deben preocuparse de otras labores, que le impiden buscar trabajo.
+
+```{r}
+#|label:fig busqueda_de_trabajo
+#|fig-cap:"Plot"
+graph1 <- proc_base %>% ggplot(aes(x = busqueda_trbj, fill = sexo)) + 
+  geom_bar() +
+  xlab("Busqueda de trabajo") +
+  ylab("Cantidad") + 
+  labs(fill="Sexo")+
+  scale_fill_discrete(labels = c('Hombre','Mujer'))
+
+graph1
+```
+
+[@fig_busqueda_de_trabajo]
+
+Por ultimo para analizar la brecha salarial, podemos observar que primero la cantidad de mujeres sin sueldo es de un 10.3%, mientras que los hombres sin sueldo es de 4.2%. Cuando nos fijamos en la categoria de sueldo inferior, vemos que las mujeres son el 9.3% mientras que los hombres son el 4.2%.
+
+en estas dos primeras categorias vemos como son mas mujeres quienes, no reciben sueldo y quienes reciben un sueldo inferior al promedio, ahora bien cuando seguimos avanzando vemos que ahora los hombres son mayoria, sin embargo en la categoría de sueldo promedio que es donde se encuentra el 72.% de los datos. Vemos que son mas hombres con un 75.9% que ganane el sueldo propmedio, mientras que las mujeres son un 68.7%. Y en nuetra ultima categoria de suelfo superior al promedio tenemos tambien que son mas hombres que mujeres los que ganan mas del promedi, donde los hombre son un 15,7% y las mujeres un 11.8%.
+
+Gracias a esta variable podemos confirmar parte de la hipotesis, si vemos que hay una diferencia salarial entre hombres y mujeres, y no solo eso que los hombres tienen una mejor estabilidad economica, al tener mejores sueldos.
+
+```{r}
+# h) Salario
+sjt.xtab(proc_base$Salario, proc_base$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+graph2 <- proc_base %>% ggplot(aes(x = Salario, fill = sexo)) + 
+  geom_bar() +
+  xlab("Salario") +
+  ylab("Cantidad") + 
+  labs(fill="Sexo")+
+  scale_fill_discrete(labels = c('Hombre','Mujer'))
+
+graph2
+```
+
+Bueno el recorrido que hicimos al analizar las variables, podemos ver cómo hay ciertos factores que tienen más relevancia que otros, para cumplir la hipótesis. Recordemos que este trabajo tiene por objetivo realizar un análisis estadístico de la "Inequidad de géneros", para esto comprendí el problema desde 3 aristas.
+
+El primer aspecto que pude corroborar es que efectivamente hay una mayor participación de hombres en el mercado laboral en comparación con las mujeres. Como un segundo aspecto era como afecta las relaciones del hogar, esto nonos entrego muchos resultados, a excepción de cuando analice las razones de porque no han buscado trabajo en el ultimo tiempo y los resultados afirman que las mujeres se hacen cargos de otras tareas en este caso tareas de cuidado y quehaceres del hogar lo cual impide notoriamente la búsqueda de un trabajo, mientras los hombres no se ven muy afectados por esto. Por último, vemos que, si hay efectivamente una brecha salarial, en el mercado laboral, los hombres presentan mejor valoración de su trabajo vs las mujeres.
+
+En resumen, el análisis de las variables nos permite confirmas la hipótesis que, si existe una inequidad laboral, y hay elementos que influyen en ellos, sin embargo, creo que es necesario que se deba ahondar un poco más, para poder corregir y reevaluar cosas que talvez en una primera instancia no se considera.
+
+#### Construccion de indice de bracha laboral de genero
+
+En este punto de la investigación es necesario trabajar con una recodificación de la base datos anterior, ya que como se encuentra codificada actualmente era útil para un primer análisis de los datos, sin embargo, para la construcción del índice es necesario recodificarla.
+
+```{r}
+rm(list = ls()) # para limpiar el entorno de trabajo
+```
+
+```{r}
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/CASEN_recodd.rdata"))
+```
+
+```{r}
+dim(proc_base)
+names(proc_base) 
+```
+
+En mi búsqueda bibliográfica no pude encontrar algún índice explícito sobre la inequidad laboral, sin embargo, cuando hablamos de índice de brecha de género, la dimensión laboral cumple un rol fundamental para comprender la brecha de género. Es por esto que, para la construcción del índice de inequidad de género, me base en dos principales investigaciones, la primera es del Instituto Nacional de Estadística (INE), la Encuesta Nacional de Empleo [@ENE] y el segundo fue la investigación de “Inequidades y brechas de género en el empleo”, realizada por [@ENCLA].
+
+Entonces para realizar un índice de inequidad laboral de género, las dimensiones que salen a la luz en estas investigaciones son; la primera es la participación laboral, es decir que participación están teniendo hombres y mujeres en el mercado laboral, otra dimensión es como la familia o la organización de los hogares afecta en esta participación, una tercera dimensión es el salario, es decir como los ingresos se distribuyen entre hombres y mujeres. En resumen, el índice de brecha laboral por genero se vería de la siguiente manera.
+
+1.  Participacion laboral: trabajo - trabajo de manera informal - horas trabajadas
+
+2.  Composicion del hogar: jefe de hogar - tiene pareja - madre o padre viven en el hogar
+
+3.  Salario: Ingresos
+
+Para poder analizar la diferencia de estas dimensiones entre hombres y mujeres, fue necesario analizarlo por separado, entonces cuando los resultados esten mas cerca del 0, significa que las condiciones del mercado laboral son mas desiguales, mientras que cuando se encuentran mas cerca del 1, implicara que las condiciones en el mercado laboral, son mas justas.
+
+```{r}
+CASEN_mujeres <- proc_base %>% dplyr::filter(sexo == "Mujer" )
+CASEN_hombres <- proc_base %>% dplyr::filter(sexo == "Hombre")
+```
+
+Primero veamos que obtemenos cuando filtramo el indice por los hombres:
+
+```{r}
+CASEN_hombres <- CASEN_hombres %>% select(jefe_h,
+                                pareja,
+                                mp_vivienda,
+                                trbj,
+                                `trbj_no formal`,
+                                horas_trbj,
+                                Salario)  %>%
+  mutate_all(~(as.numeric(.))) # Convertimos todas las variables a numéricas
+```
+
+```{r}
+CASEN_hombres = CASEN_hombres %>% 
+  rowwise() %>%
+  mutate(participacion_laboral= mean(c(trbj,`trbj_no formal`,horas_trbj)),
+         Composicion_del_hogar= mean(c(jefe_h, pareja, mp_vivienda)),
+         Salario= mean(c(Salario))) %>% 
+  ungroup()
+```
+
+```{r}
+CASEN_hombres = CASEN_hombres %>% 
+  rowwise() %>%
+  mutate(inequidad_laboral = mean(c(participacion_laboral, Composicion_del_hogar, Salario), na.rm = T)) %>% 
+  ungroup() 
+
+summary(CASEN_hombres$inequidad_laboral) # Resumen
+```
+
+Vemos que el primer cuartil en el caso de los hombres esta en el 1, al igual que su mediana lo que implican uqe tienen buenas condiciones laborales, en el ambito de lo que es, tanto participacion, como el salario que obtienen. La media tambien se encuentra alta siendo 0.867.
+
+Ahora bien cuando el indice esta filtrado por las mujeres obtenemos lo siguiente;
+
+```{r}
+CASEN_mujeres <- CASEN_mujeres %>% select(jefe_h,
+                                      pareja,
+                                      mp_vivienda,
+                                      trbj,
+                                      `trbj_no formal`,
+                                      horas_trbj,
+                                      Salario)  %>%
+  mutate_all(~(as.numeric(.))) # Convertimos todas las variables a numéricas
+```
+
+```{r}
+CASEN_mujeres = CASEN_mujeres %>% 
+  rowwise() %>%
+  mutate(participacion_laboral= mean(c(trbj,`trbj_no formal`,horas_trbj)),
+         Composicion_del_hogar= mean(c(jefe_h, pareja, mp_vivienda)),
+         Salario= mean(c(Salario))) %>% 
+  ungroup()
+```
+
+```{r}
+CASEN_mujeres = CASEN_mujeres %>% 
+  rowwise() %>%
+  mutate(inequidad_laboral = mean(c(participacion_laboral, Composicion_del_hogar, Salario), na.rm = T)) %>% 
+  ungroup() 
+
+summary(CASEN_mujeres$inequidad_laboral) # Resumen 
+```
+
+Podemos notar de inmediato algunas diferencias respecto a los hombres, una primera es uqe el primer cuartil a diferencia de los hombres que era 1, en el caso de las mujeres es 0.667, hay una diferencia significativa en este punto, esto quiere decir que el 25% de las mujeres presentan una desigualdad en el mercado lavoral a diferencia del 25% de los hombres. Ahora bien la mediana tenemos la misma que en el caso de los hombres que es 1, mientras que la media en las mujeres es de 0.754, en los hombres era de 0.867, la difencia no es tanta, pero sin embargo sigue demostrando que los hombres tienen mejores condiciones en el mercado laboral.
+
+En resumen podemos observar como los distintos resultados evidencian que la inequidad de genero en el mercado laboral aun se encuentra latente, y que las areas planteadas en la introduccion de este trabajo, si tienen una relacion directa con esto. Por otro lado el indice funciona como una herramienta para sintetizar las variables.
+
+#### Conclusiones
+
+El análisis realizado debela una disparidad entre hombres y mujeres en el ámbito laboral, en otras palabras, hay una brecha de genero en el mercado laboral. En este trabajo solo analizo algunos factores que pueden incidir en esto, sin embargo, quiero aclarar que puede llegar a ser un tema muy amplio y existen más factores que en un futuro podríamos analizar.
+
+La inequidad de genero sigue siendo un desafío que tenemos que abordar para poder avanzar en la equidad entre hombres y mujeres, el mercado laboral es solo un espacio en el cual es importante trabajar las desigualdades.
