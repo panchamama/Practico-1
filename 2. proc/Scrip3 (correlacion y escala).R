@@ -70,27 +70,43 @@ summary(casen$sueldo) #Confirmacion
 frq(casen2$nacionalidad) # No es necesario recodificar
 frq(casen2$pueblo_originario) # No es necesario recodificar
 
-# 4. Casos perdidos # ----
+# 4. Matrices de Correlacion # ----
+casen_correlacion <- casen %>% select(trabajo, # Trabajo
+                                      trabajo_informal, # Trabajo informal
+                                      horas_trabajo, # Horas trabajadas
+                                      tipo_trabajo, # Su trabajo es de tipo
+                                      contrato, # Tipo de contrato
+                                      jornada_labora, #Jornada laboral
+                                      horario_trabajo, #Tipo de horario
+                                      sueldo) # Sueldo
+## 4.1 Casos NA ## ----
+mean(casen_correlacion$trabajo); mean(casen_correlacion$trabajo_informal); 
+mean(casen_correlacion$horas_trabajo); mean(casen_correlacion$tipo_trabajo);
+mean(casen_correlacion$contrato); mean(casen_correlacion$jornada_labora);
+mean(casen_correlacion$horario_trabajo); mean(casen_correlacion$sueldo)
+  
+mean(casen_correlacion$trabajo, na.rm = TRUE); mean(casen_correlacion$trabajo_informal, na.rm = TRUE);
+mean(casen_correlacion$horas_trabajo, na.rm = TRUE); mean(casen_correlacion$tipo_trabajo, na.rm = TRUE);
+mean(casen_correlacion$contrato, na.rm = TRUE); mean(casen_correlacion$jornada_labora, na.rm = TRUE);
+mean(casen_correlacion$horario_trabajo, na.rm = TRUE); mean(casen_correlacion$sueldo, na.rm = TRUE);
 
-# a) Respaldar la base de datos
-casen_original <- casen_rec
-dim(casen_rec)
+## 4.2 Correlacion ## ----
+cor(casen_correlacion, use = "pairwise.complete.obs") # Correlacion
 
-# b) Contamos cantidad de casos perdidos #
-sum(is.na(casen_rec))
+M <- cor(casen_correlacion, use = "complete.obs")
+M
 
-# c) Vemos en que variable se encuentran #
-colSums(is.na(casen))
-casen_rec <- ncasen_rec <- ncasen_rec <- na.omit(casen_rec)
-dim(casen_rec)
+sjPlot::tab_corr(casen_correlacion, 
+                 triangle = "lower")
 
-# d) 
-casen_rec <- na.omit(casen_rec)
-dim(casen_rec)
- PENDIENTEEEEEEEEEEEE
-# 5. Matrices de Correlacion # ----
+sjPlot::tab_corr(proc_elsoc_original, 
+                 na.deletion = "pairwise", # espeficicamos tratamiento NA
+                 triangle = "lower")
 
-# 6. Construccion de Escala # 
+corrplot.mixed(M)
+ 
+# 5. Construccion de la escala #  ----
+
 
 ## Guardar base de datos ## ----
 casan_reg <
