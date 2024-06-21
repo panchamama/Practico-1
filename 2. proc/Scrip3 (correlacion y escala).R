@@ -3,6 +3,8 @@
 # Participacion en el mercado laboral #
 
 # 1. Instalacion de paquetes # ----
+rm(list = ls()) #limpiar area de trabajo
+
 pacman::p_load(dplyr, # Manipulacion datos
                sjmisc, # Descriptivos
                sjPlot, # Tablas
@@ -13,15 +15,17 @@ pacman::p_load(dplyr, # Manipulacion datos
 
 options(scipen = 999) # para desactivar notacion cientifica
 
-## 2. Cargar base de datos rocodificada ## ----
+# 2. Cargar base de datos rocodificada # ----
 load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
 dim(casen_rec)
-View(casen_rec)
-names(casen_rec)
+casen_rec <- casen_rec %>% dplyr:: filter(edad >= 18 & edad <= 65) # Recodificacion por edad
+
+sjmisc::descr(casen_rec,
+              show = c("label","range", "mean", "sd", "NA.prc", "n")) %>%
+  kable(.,"markdown")
 
 # 3. Seleccion de variables # ----
-casen <- proc_base %>% select(edad, # Edad
-                              sexo, # Sexo
+casen <- casen_rec %>% select(sexo, # Sexo
                               educ, # Nivel educacional mas alto al cual asistio
                               trabajo, # Trabajo
                               trabajo_informal, # Trabajo informal
@@ -38,42 +42,57 @@ casen <- proc_base %>% select(edad, # Edad
 # las cuales pueda construir la escala, sin embargo seleccione otras para almomento de
 # guardar la base, guardar tambien esas variables, ya que las usare en el siguiente scrip.
 
-# Estadisticos descriptivos 
-sjmisc::descr(casen2,
-              show = c("label","range", "mean", "sd", "NA.prc", "n")) %>%
-  kable(.,"markdown")
+## 3.1 Recodificacion de variables ## ----
+frq(casen$sexo) # No es necesario recodificar
+frq(casen$educ) # No es necesario recodificar
 
-# 3.1 Casos perdidos #
-# a) Analisis con casos completos: listwise
+frq(casen$trabajo) # Recodificacion numerica
+casen$trabajo <- recode(casen$trabajo, "No trabaja" = 0, "Trabaja" = 1)
+summary(casen$trabajo) #Confirmacion
 
-# 3.2 Recodificacion de variables # ----
-frq(casen2$edad) # No es necesario recodificar
-frq(casen2$sexo) # No es necesario recodificar
-frq(casen2$educ) # No es necesario recodificar
+frq(casen$trabajo_informal) # Recodificacion numerica
+casen$trabajo_informal <- recode(casen$trabajo_informal, "No trabaja" = 0, "Trabaja" = 1)
+summary(casen$trabajo_informal) #Confirmacion
 
-frq(casen2$trabajo) # Recodificacion numerica
+frq(casen$horas_trabajo) # Recodificacion numerica
+casen$horas_trabajo<- recode(casen$horas_trabajo, "Inf promedio" = 0, "Promedio" = 0.5, "Sup promedio" = 1)
+summary(casen$horas_trabajo) #Confirmacion
 
-frq(casen2$trabajo_informal) # Recodificacion numerica
+frq(casen$tipo_trabajo) # No es necesario recodificar
+frq(casen$contrato) # No es necesario recodificar
+frq(casen$jornada_labora) # No es necesario recodificar
+frq(casen$horario_trabajo) # No es necesario recodificar
 
-frq(casen2$horas_trabajo) # Recodificacion numerica
-
-frq(casen2$tipo_trabajo) # No es necesario recodificar
-frq(casen2$contrato) # No es necesario recodificar
-frq(casen2$jornada_labora) # No es necesario recodificar
-frq(casen2$horario_trabajo) # No es necesario recodificar
-
-frq(casen2$sueldo) # Recodificacion numerica
+frq(casen$sueldo) # Recodificacion numerica
+casen$sueldo<- recode(casen$sueldo, "Menos del salario minimo" = 0, "Salario promedio" = 0.5, "Salario sobre el promedio" = 1)
+summary(casen$sueldo) #Confirmacion
 
 frq(casen2$nacionalidad) # No es necesario recodificar
 frq(casen2$pueblo_originario) # No es necesario recodificar
 
+# 4. Casos perdidos # ----
 
+# a) Respaldar la base de datos
+casen_original <- casen_rec
+dim(casen_rec)
 
-#Construccion de Escala #
+# b) Contamos cantidad de casos perdidos #
+sum(is.na(casen_rec))
 
+# c) Vemos en que variable se encuentran #
+colSums(is.na(casen))
+casen_rec <- ncasen_rec <- ncasen_rec <- na.omit(casen_rec)
+dim(casen_rec)
 
-## Guardar base de datos ##
+# d) 
+casen_rec <- na.omit(casen_rec)
+dim(casen_rec)
+ PENDIENTEEEEEEEEEEEE
+# 5. Matrices de Correlacion # ----
+
+# 6. Construccion de Escala # 
+
+## Guardar base de datos ## ----
+casan_reg <
 save(proc_base,file = "1. input/CASEN_recodd.rdata")
-
-
-
+ 
