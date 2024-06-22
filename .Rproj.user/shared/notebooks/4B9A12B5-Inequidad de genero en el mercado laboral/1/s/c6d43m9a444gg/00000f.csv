@@ -1,6 +1,0 @@
-"0","# c) Cuantas horas trabajo a la semana"
-"0","sjt.xtab(proc_base$horas_trbj, proc_base$sexo,"
-"0","         show.col.prc=TRUE,"
-"0","         show.summary=FALSE,"
-"0","         encoding = ""UTF-8"""
-"0",")"

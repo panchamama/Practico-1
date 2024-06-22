@@ -1,2 +1,0 @@
-"0","CASEN_mujeres <- proc_base %>% dplyr::filter(sexo == ""Mujer"" )"
-"0","CASEN_hombres <- proc_base %>% dplyr::filter(sexo == ""Hombre"")"

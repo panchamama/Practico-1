@@ -1,9 +1,9 @@
 ---
-title: "Trabajo"
+title: "inequdad"
 author: "Francisca Apablaza"
 format: html
 editor: visual
-bibliography: Inequidades de genero en el mercado laboral.bib
+bibliography: .bib
 link-citations: true
 ---
 
