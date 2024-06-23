@@ -1,0 +1,115 @@
+# Regresion lineal #
+# Francisca Apablaza #
+# Participacion en el mercado laboral #
+
+# 1. Instalacion de paquetes # ----
+rm(list = ls()) #limpiar area de trabajo
+
+pacman::p_load(dplyr,
+               car, 
+               sjmisc, 
+               sjPlot, 
+               sjlabelled, 
+               stargazer, 
+               kableExtra, 
+               corrplot, 
+               texreg, 
+               ggplot2, 
+               ggpubr,
+               summarytools, # Tablas
+               sessioninfo, # Información de la sesión de trabajo
+               fastDummies, # Generar regresión
+               ggeffects) # Gráfico de valores predichos
+
+# 2. Cargar la base de datos ----
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_reg.rdata"))
+dim(casen_reg)
+
+view_df(casen_reg,max.len = 50)
+
+# 3. Variables # ----
+casen_reg$educ <- as_factor(casen_reg$educ)
+casen_reg$sexo <- as_factor(casen_reg$sexo)
+
+# 3. Regresiones # ----
+casen_reg <- na.omit(casen_reg)
+
+reg1 <- lm(participacion_mercado_laboral ~ 1, data=casen_reg)
+
+stargazer(reg1, type="text")
+
+# 3.1 Regresion lineal simple # ----
+reg2 <- lm(participacion_mercado_laboral ~ sexo, data=casen_reg)
+reg3 <- lm(participacion_mercado_laboral ~ educ, data=casen_reg)
+reg4 <- lm(participacion_mercado_laboral ~ nacionalidad, data=casen_reg)
+reg5 <- lm(participacion_mercado_laboral ~ pueblo_originario, data=casen_reg)
+
+knitreg(list(reg2, reg3, reg4, reg5), 
+        custom.model.names = c("Modelo 1",
+                               "Modelo 2",
+                               "Modelo 3",
+                               "Modelo 4"),
+        custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
+        custom.coef.names = c("Intercepto",
+                              "Mujer <br> <i>(Ref. Hombre)</i>",
+                              "Sin estudios <br> <i>(Ref. Ed. básica)</i>",
+                              "Educación media <br> <i>(Ref. Ed. básica)</i>", 
+                              "Educación superior <br> <i>(Ref. Ed. básica)</i>",
+                              "Nac.extranjeta <br> <i>(Ref. Nac.chilena)</i>",
+                              "Pertenece PO <br> <i>(Ref. No prestenece PO)</i>"),
+        caption = "Participacion en el mercado laboral",
+        caption.above = TRUE)
+
+frq(casen_reg$educ)
+
+# 4. Regrasion lineal multiple # ----
+reg2 <- lm(participacion_mercado_laboral ~ sexo + educ, data=casen_reg)
+reg3 <- lm(participacion_mercado_laboral ~ sexo + educ + nacionalidad, data=casen_reg)
+reg4 <- lm(participacion_mercado_laboral ~ sexo + educ + nacionalidad + pueblo_originario, data=casen_reg)
+
+knitreg(list(reg2, reg3, reg4,), 
+        custom.model.names = c("Modelo 1",
+                               "Modelo 2",
+                               "Modelo 3"),
+        custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
+        custom.coef.names = c("Intercepto", 
+                              "Mujer <br> <i>(Ref. Hombre)</i>",
+                              "Sin estudios <br> <i>(Ref. Ed. básica)</i>",
+                              "Educación media", 
+                              "Educación superior",
+                              "Postgrados",
+                              "Nacionalidad extranjera <br> <i>(Ref. Nacionalidad chilena)</i>",
+                              "Pertenece puablo originario <br> <i>(Ref. No pertenece pueblo originario)</i>"),
+        caption = "Participacion en el mercado laboral",
+        caption.above = TRUE)
+
+# Definir los nombres personalizados para los coeficientes
+custom_coef_names <- c("Intercepto", 
+                       "Sexo (mujer)",
+                       "Educacion (basica)",
+                       "Nacionalidad (chilena)",
+                       "Pueblo originadio (pertenece)")
+
+# 5. Graficar # ----
+plot_model(reg8, 
+           title = "", #quitar titulo
+           show.values = TRUE, #mostrar valor de efectos
+           dot.size = 3, #tamaño circulos
+           line.size = 1, #tamaño CI
+           value.size = 4, #tamaño valor efectoss
+           spacing = 1, #espacio entre efectos
+           vline.color = "red", # linea roja en punto neutro (0)
+           axis.labels = rev(c("Edad",
+                               "Educación media", 
+                               "Educación superior", 
+                               "Mujer")), #con rev porque automatico los tira en otro orden
+           show.legend = FALSE) + # variables dependientes
+  theme_bw()
+
+
+
+# 6. Valores predichos # 
+
+
+
+que dificil me la pusiste diablo
