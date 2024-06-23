@@ -34,7 +34,7 @@ casen_rec$trabajo_informal <- recode(casen_rec$trabajo_informal, "No trabaja" = 
 summary(casen_rec$trabajo_informal) #Confirmacion
 
 frq(casen_rec$horas_trabajo) # Recodificacion numerica
-casen_rec$horas_trabajo<- recode(casen_rec$horas_trabajo, "Inf promedio" = 0, "Promedio" = 0.5, "Sup promedio" = 1)
+casen_rec$horas_trabajo <- recode(casen_rec$horas_trabajo, "Inf promedio" = 0, "Promedio" = 0.5, "Sup promedio" = 1)
 summary(casen_rec$horas_trabajo) #Confirmacion
 
 frq(casen_rec$sueldo) # Recodificacion numerica
@@ -51,26 +51,8 @@ casen_correlacion <- casen_rec %>% select(trabajo, # Trabajo
                                           horario_trabajo, #Tipo de horario
                                           sueldo) # Sueldo
 ## 4.1 Casos NA ## ----
-mean(casen_correlacion$trabajo); mean(casen_correlacion$trabajo_informal); 
-mean(casen_correlacion$horas_trabajo); mean(casen_correlacion$tipo_trabajo);
-mean(casen_correlacion$contrato); mean(casen_correlacion$jornada_labora);
-mean(casen_correlacion$horario_trabajo); mean(casen_correlacion$sueldo)
-  
-mean(casen_correlacion$trabajo, na.rm = TRUE); mean(casen_correlacion$trabajo_informal, na.rm = TRUE);
-mean(casen_correlacion$horas_trabajo, na.rm = TRUE); mean(casen_correlacion$tipo_trabajo, na.rm = TRUE);
-mean(casen_correlacion$contrato, na.rm = TRUE); mean(casen_correlacion$jornada_labora, na.rm = TRUE);
-mean(casen_correlacion$horario_trabajo, na.rm = TRUE); mean(casen_correlacion$sueldo, na.rm = TRUE);
 
 ## 4.2 Correlacion ## ----
-M <- cor(casen_correlacion, use = "complete.obs")
-M
-
-sjPlot::tab_corr(casen_correlacion, 
-                 na.deletion = "pairwise", # espeficicamos tratamiento NA
-                 triangle = "lower")
-
-corrplot.mixed(M)
-cor(casen_correlacion, use = "pairwise.complete.obs") # Correlacion
 
 # 4.a Listwise delection # ----
 casen_original <- casen_correlacion # Respaldar base de datos
@@ -83,6 +65,8 @@ colSums(is.na(casen_correlacion)) # Vemos donde estas los NA.s
 casen_correlacion <- na.omit(casen_correlacion) # Eliminamos los NA.s
 dim(casen_correlacion)
 
+frq(casen_correlacion$trabajo)
+
 M <- cor(casen_correlacion, use = "complete.obs") # Matriz de correlacion
 M
 
@@ -92,7 +76,8 @@ sjPlot::tab_corr(M, # Visualizacion
 corrplot.mixed(M)
 
 # 5. Construccion de la escala #  ----
-
+frq(casen_correlacion$trabajo)
+frq(casen_correlacion$contrato)
 na.omit(casen_correlacion)
 cor(casen_correlacion)
 

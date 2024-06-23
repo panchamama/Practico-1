@@ -21,19 +21,19 @@ dim(casen_rec)
 ## 2.1 Recodificar base por edad ## ----
 casen_rec <- casen_rec %>% dplyr:: filter(edad >= 18 & edad <= 65)
 
-# 4. Descripcion de las variables # ----
-## 4.1 Tablas descriptivas con descr, librería sjmiscsjmisc::descr ##
+# 3. Descripcion de las variables # ----
+## 3.1 Tablas descriptivas con descr, librería sjmiscsjmisc::descr ##
 sjmisc::descr(casen_rec)
 sjmisc::descr(casen_rec,
               show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
   kable(.,"markdown")
 
-## 4.2 Tabla descriptiva con summarytools::dfSummarysummarytools::dfSummary ##
+## 3.2 Tabla descriptiva con summarytools::dfSummarysummarytools::dfSummary ##
 summarytools::dfSummary(casen_rec, plain.ascii = FALSE)
 view(dfSummary(casen_rec, headings=FALSE)) # Visualizar mejor
 
 
-# 5. Asociacion entre variables # ----
+# 4. Asociacion entre variables # ----
 
 ## a) Realizo trabajo formal ##
 sjt.xtab(casen_rec$trabajo, casen_rec$sexo,
@@ -71,45 +71,11 @@ sjt.xtab(casen_rec$sueldo, casen_rec$sexo,
 )
 
 
-# 6. Graficos de las variables # ----
+# 5. Graficos de las variables # ----
 
-## a) Razon de la no busqueda de trabajo ##
-graph1 <- casen_rec %>%
-  filter(!is.na(busqueda_trabajo)) %>% 
-  ggplot(aes(x = busqueda_trabajo)) + 
-  geom_bar(fill = "coral")+
-  labs(title = "Confianza en instituciones",
-       x = "Razones porque no busca trabajo",
-       y = "Frecuencia")
+## a) Ingreso de salario mensual ##
 
-graph1
-ggsave(graph1, file="3. output/graph1.png")
-
-graph2 <- casen_rec %>% 
-  filter(!is.na(busqueda_trabajo)) %>% 
-  ggplot(aes(x = busqueda_trabajo, fill = sexo)) + 
-  geom_bar() +
-  xlab("Razon por la cual no busco trabajo") +
-  ylab("Cantidad") + 
-  labs(fill="Sexo")+
-  scale_fill_discrete(labels = c('Hombre','Mujer'))
-
-graph2
-ggsave(graph2, file="3. output/graph2.png")
-
-## b) Ingreso de salario mensual ##
-graph3 <- casen_rec %>%
-  filter(!is.na(sueldo)) %>% 
-  ggplot(aes(x = sueldo)) + 
-  geom_bar(fill = "coral")+
-  labs(title = "Ingreso de sueldo mensual",
-       x = "Sueldo",
-       y = "Frecuencia")
-
-graph3
-ggsave(graph3, file(x))
-
-graph4 <- casen_rec %>% 
+graph1 <- casen_rec %>% 
   filter(!is.na(sueldo)) %>% 
   ggplot(aes(x = sueldo, fill = sexo)) + 
   geom_bar() +
@@ -118,5 +84,5 @@ graph4 <- casen_rec %>%
   labs(fill="Sexo")+
   scale_fill_discrete(labels = c('Hombre','Mujer'))
 
-graph4
-ggsave(graph8, file="3. output/graph8.png")
+graph1
+ggsave(graph1, file="3. output/graph1.png")

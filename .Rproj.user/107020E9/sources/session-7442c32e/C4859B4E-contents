@@ -34,7 +34,7 @@ casen_rec$trabajo_informal <- recode(casen_rec$trabajo_informal, "No trabaja" = 
 summary(casen_rec$trabajo_informal) #Confirmacion
 
 frq(casen_rec$horas_trabajo) # Recodificacion numerica
-casen_rec$horas_trabajo<- recode(casen_rec$horas_trabajo, "Inf promedio" = 0, "Promedio" = 0.5, "Sup promedio" = 1)
+casen_rec$horas_trabajo <- recode(casen_rec$horas_trabajo, "Inf promedio" = 0, "Promedio" = 0.5, "Sup promedio" = 1)
 summary(casen_rec$horas_trabajo) #Confirmacion
 
 frq(casen_rec$sueldo) # Recodificacion numerica

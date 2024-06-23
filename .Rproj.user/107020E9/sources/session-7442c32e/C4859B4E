@@ -3,7 +3,7 @@
     "path": "~/GitHub/Practico-1/2. proc/Scrip3 (correlacion y escala).R",
     "project_path": "2. proc/Scrip3 (correlacion y escala).R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "580159753",
     "contents": "",
     "dirty": false,
     "created": 1719088668718.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "64,0",
-        "scrollLine": "44"
+        "cursorPosition": "43,0",
+        "scrollLine": "20"
     },
     "folds": "4|31|16|0|\n17|41|25|0|\n26|64|42|0|\n",
-    "lastKnownWriteTime": 1719097287,
+    "lastKnownWriteTime": 1719110202,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1719102728227,
+    "last_content_update": 1719110284819,
     "read_only": false,
     "read_only_alternatives": []
 }
