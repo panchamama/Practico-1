@@ -50,27 +50,7 @@ casen_correlacion <- casen_rec %>% select(trabajo_informal, # Trabajo informal
                                           horario_trabajo, #Tipo de horario
                                           sueldo) # Sueldo
 
-## 4.1 Pairwise delection ## ----
-mean(casen_correlacion$trabajo); mean(casen_correlacion$trabajo_informal); 
-mean(casen_correlacion$horas_trabajo);mean(casen_correlacion$tipo_trabajo);
-mean(casen_correlacion$contrato); mean(casen_correlacion$jornada_labora); 
-mean(casen_correlacion$horario_trabajo);mean(casen_correlacion$sueldo);
-
-mean(casen_correlacion$trabajo, na.rm = TRUE);mean(casen_correlacion$trabajo_informal, na.rm = TRUE);
-mean(casen_correlacion$horas_trabajo, na.rm = TRUE); mean(casen_correlacion$tipo_trabajo, na.rm = TRUE);
-mean(casen_correlacion$contrato, na.rm = TRUE); mean(casen_correlacion$jornada_labora, na.rm = TRUE);
-mean(casen_correlacion$horario_trabajo, na.rm = TRUE); mean(casen_correlacion$sueldo, na.rm = TRUE);
-
-M <- cor(casen_correlacion, use = "complete.obs")
-M
-
-sjPlot::tab_corr(casen_correlacion, 
-                 na.deletion = "pairwise", # espeficicamos tratamiento NA
-                 triangle = "lower")
-
-corrplot.mixed(M)
-
-# 4.2 Listwise delection # ----
+## 4.1 Listwise delection ## ----
 df <- casen_correlacion # Respaldar base de datos
 dim(casen_correlacion)
 
@@ -112,6 +92,12 @@ casen_rec <- casen_rec %>%
 summary(casen_rec$participacion_mercado_laboral)
 
 frq(casen_rec$participacion_mercado_laboral)
+
+ggplot(casen_rec, aes(x = participacion_mercado_laboral)) +
+  geom_histogram(binwidth=0.6, colour="black", fill="yellow") +
+  theme_bw() +
+  xlab("Participacion en el mercado laboral") +
+  ylab("Cantidad")
 
 # 7. Guardar base de datos ## ----
 casen_reg <- casen_rec %>% select(participacion_mercado_laboral,

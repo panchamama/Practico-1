@@ -15,7 +15,11 @@ pacman::p_load(dplyr,
                corrplot, 
                texreg, 
                ggplot2, 
-               ggpubr)
+               ggpubr,
+               summarytools, # Tablas
+               sessioninfo, # Información de la sesión de trabajo
+               fastDummies, # Generar regresión
+               ggeffects) # Gráfico de valores predichos
 
 # 2. Cargar la base de datos ----
 load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_reg.rdata"))
