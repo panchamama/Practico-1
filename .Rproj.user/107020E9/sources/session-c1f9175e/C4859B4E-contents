@@ -42,8 +42,7 @@ casen_rec$sueldo<- recode(casen_rec$sueldo, "Menos del salario minimo" = 0, "Sal
 summary(casen_rec$sueldo) #Confirmacion
 
 # 4. Matrices de Correlacion # ----
-casen_correlacion <- casen_rec %>% select(trabajo, # Trabajo
-                                          trabajo_informal, # Trabajo informal
+casen_correlacion <- casen_rec %>% select(trabajo_informal, # Trabajo informal
                                           horas_trabajo, # Horas trabajadas
                                           tipo_trabajo, # Su trabajo es de tipo
                                           contrato, # Tipo de contrato
@@ -57,7 +56,7 @@ mean(casen_correlacion$horas_trabajo);mean(casen_correlacion$tipo_trabajo);
 mean(casen_correlacion$contrato); mean(casen_correlacion$jornada_labora); 
 mean(casen_correlacion$horario_trabajo);mean(casen_correlacion$sueldo);
 
-mean(casen_correlacion$trabajo, na.rm = TRUE); mean(casen_correlacion$trabajo_informal, na.rm = TRUE);
+mean(casen_correlacion$trabajo, na.rm = TRUE);mean(casen_correlacion$trabajo_informal, na.rm = TRUE);
 mean(casen_correlacion$horas_trabajo, na.rm = TRUE); mean(casen_correlacion$tipo_trabajo, na.rm = TRUE);
 mean(casen_correlacion$contrato, na.rm = TRUE); mean(casen_correlacion$jornada_labora, na.rm = TRUE);
 mean(casen_correlacion$horario_trabajo, na.rm = TRUE); mean(casen_correlacion$sueldo, na.rm = TRUE);
@@ -91,14 +90,28 @@ sjPlot::tab_corr(M, # Visualizacion
 corrplot.mixed(M)
 
 # 5. Alfa de Cronbach # ----
-psych::alpha(casen_correlacion)
-psych::alpha(dplyr::select(proc_data, ideal, integracion, identificacion, pertenencia))
+# Asegúrate de tener el paquete psych instalado y cargado
+if (!requireNamespace("psych", quietly = TRUE)) {
+  install.packages("psych")
+}
+library(psych)
+
+# Calcular el alpha de Cronbach con la opción check.keys=TRUE
+alpha_result <- psych::alpha(casen_correlacion, check.keys=TRUE)
+
+# Ver los resultados
+print(alpha_result)
+
+# Ver cuáles variables fueron invertidas
+print(alpha_result$keys)
 
 # 6. Construccion de la escala # ----
 casen_rec <- casen_rec %>% 
   rowwise() %>% 
   mutate(participacion_mercado_laboral = sum(trabajo,trabajo_informal,horas_trabajo,tipo_trabajo,contrato,jornada_labora,horario_trabajo,sueldo))
 summary(casen_rec$participacion_mercado_laboral)
+
+frq(casen_rec$participacion_mercado_laboral)
 
 # 7. Guardar base de datos ## ----
 casen_reg <- casen_rec %>% select(participacion_mercado_laboral,
