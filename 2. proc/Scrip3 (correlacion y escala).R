@@ -73,7 +73,7 @@ corrplot.mixed(M)
 cor(casen_correlacion, use = "pairwise.complete.obs") # Correlacion
 
 # 4.a Listwise delection # ----
-casen_o <- casen_correlacion # Respaldar base de datos
+casen_original <- casen_correlacion # Respaldar base de datos
 dim(casen_correlacion)
 
 sum(is.na(casen_correlacion)) # Contamos los NA.s
@@ -93,6 +93,16 @@ corrplot.mixed(M)
 
 # 5. Construccion de la escala #  ----
 
+na.omit(casen_correlacion)
+cor(casen_correlacion)
+
+# Alfa de Cronbach #
+psych::alpha(casen_correlacion)
+
+casen_correlacion <- casen_correlacion %>% 
+  rowwise() %>% 
+  mutate(participacion_mercado_laboral = sum(trabajo,trabajo_informal,horas_trabajo,tipo_trabajo,contrato,jornada_labora,horario_trabajo,sueldo))
+summary(casen_correlacion$participacion_mercado_laboral)
 
 ## Guardar base de datos ## ----
 casan_reg <

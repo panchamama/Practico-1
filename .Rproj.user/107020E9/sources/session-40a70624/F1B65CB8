@@ -3,16 +3,16 @@
     "path": "~/GitHub/Practico-1/2. proc/Scrip4 (regresion lineal).R",
     "project_path": "2. proc/Scrip4 (regresion lineal).R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "1247324577",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1719088671831.0,
     "source_on_save": false,
     "relative_order": 5,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "3,0",
+        "cursorPosition": "4,0",
         "scrollLine": "0"
     },
     "folds": "",
@@ -20,7 +20,7 @@
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1718501679,
+    "last_content_update": 1719101461498,
     "read_only": false,
     "read_only_alternatives": []
 }
