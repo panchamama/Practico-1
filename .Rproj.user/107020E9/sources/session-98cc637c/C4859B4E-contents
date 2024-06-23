@@ -50,12 +50,29 @@ casen_correlacion <- casen_rec %>% select(trabajo, # Trabajo
                                           jornada_labora, #Jornada laboral
                                           horario_trabajo, #Tipo de horario
                                           sueldo) # Sueldo
-## 4.1 Casos NA ## ----
 
-## 4.2 Correlacion ## ----
+## 4.1 Pairwise delection ## ----
+mean(casen_correlacion$trabajo); mean(casen_correlacion$trabajo_informal); 
+mean(casen_correlacion$horas_trabajo);mean(casen_correlacion$tipo_trabajo);
+mean(casen_correlacion$contrato); mean(casen_correlacion$jornada_labora); 
+mean(casen_correlacion$horario_trabajo);mean(casen_correlacion$sueldo);
 
-# 4.a Listwise delection # ----
-casen_original <- casen_correlacion # Respaldar base de datos
+mean(casen_correlacion$trabajo, na.rm = TRUE); mean(casen_correlacion$trabajo_informal, na.rm = TRUE);
+mean(casen_correlacion$horas_trabajo, na.rm = TRUE); mean(casen_correlacion$tipo_trabajo, na.rm = TRUE);
+mean(casen_correlacion$contrato, na.rm = TRUE); mean(casen_correlacion$jornada_labora, na.rm = TRUE);
+mean(casen_correlacion$horario_trabajo, na.rm = TRUE); mean(casen_correlacion$sueldo, na.rm = TRUE);
+
+M <- cor(casen_correlacion, use = "complete.obs")
+M
+
+sjPlot::tab_corr(casen_correlacion, 
+                 na.deletion = "pairwise", # espeficicamos tratamiento NA
+                 triangle = "lower")
+
+corrplot.mixed(M)
+
+# 4.2 Listwise delection # ----
+df <- casen_correlacion # Respaldar base de datos
 dim(casen_correlacion)
 
 sum(is.na(casen_correlacion)) # Contamos los NA.s
@@ -65,8 +82,6 @@ colSums(is.na(casen_correlacion)) # Vemos donde estas los NA.s
 casen_correlacion <- na.omit(casen_correlacion) # Eliminamos los NA.s
 dim(casen_correlacion)
 
-frq(casen_correlacion$trabajo)
-
 M <- cor(casen_correlacion, use = "complete.obs") # Matriz de correlacion
 M
 
@@ -75,21 +90,23 @@ sjPlot::tab_corr(M, # Visualizacion
 
 corrplot.mixed(M)
 
-# 5. Construccion de la escala #  ----
-frq(casen_correlacion$trabajo)
-frq(casen_correlacion$contrato)
-na.omit(casen_correlacion)
-cor(casen_correlacion)
-
-# Alfa de Cronbach #
+# 5. Alfa de Cronbach # ----
 psych::alpha(casen_correlacion)
+psych::alpha(dplyr::select(proc_data, ideal, integracion, identificacion, pertenencia))
 
-casen_correlacion <- casen_correlacion %>% 
+# 6. Construccion de la escala # ----
+casen_rec <- casen_rec %>% 
   rowwise() %>% 
   mutate(participacion_mercado_laboral = sum(trabajo,trabajo_informal,horas_trabajo,tipo_trabajo,contrato,jornada_labora,horario_trabajo,sueldo))
-summary(casen_correlacion$participacion_mercado_laboral)
+summary(casen_rec$participacion_mercado_laboral)
 
-## Guardar base de datos ## ----
-casan_reg <
-save(proc_base,file = "1. input/CASEN_recodd.rdata")
+# 7. Guardar base de datos ## ----
+casen_reg <- casen_rec %>% select(participacion_mercado_laboral,
+                                  sexo,
+                                  educ,
+                                  nacionalidad,
+                                  pueblo_originario)
+
+save(casen_reg,file = "1. input/casen_reg.rdata")
+
  
