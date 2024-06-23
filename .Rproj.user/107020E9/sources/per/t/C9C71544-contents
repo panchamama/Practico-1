@@ -1,15 +1,23 @@
 ---
-title: "inequdad"
+title: "Trabajo"
 author: "Francisca Apablaza"
 format: html
 editor: visual
-bibliography: .bib
+bibliography: Inequidades de genero en el mercado laboral.bib
 link-citations: true
 ---
 
 ## Participación en el mercado laboral
 
-#### Introducción
+# un gato
+
+## dos gatos
+
+### tres gatos
+
+#### cuatro gatos
+
+#### Introduccion
 
 En el presente trabajo abordare la inequidad de género específicamente en el mercado laboral. Analizando que elementos podrían afectar en el desarrollo desigual entre hombres y mujeres dentro del mercado laboral. El principal tema que surge cuando hablamos de una desigualdad de género en el trabajo, es la brecha salarial. Sin embargo, quisiera adentrarme en las relaciones que existen dentro de esta esfera y que podrían afectar como cada persona experimenta el mercado laboral.
 
@@ -39,7 +47,9 @@ Trabajare con una serie de variables que me permitan abordar las 3 aristas que p
 
 Por otro lado, el objetivo es ver como se comportan las variables en relación al género, si existe una diferencia significativa y analiza se hombres y mujeres se desarrollan distintos en el mercado laboral. Para esto cada variable será cruzada con la variable de sexo.
 
-#### Analisis de datos
+#### Trabajo en Rscrip
+
+A lo largo de esta investigacion estuve trabajando con 4 scrip, para realizar distintos analisis a las variables. Desde aqui mostrare el desarrollo llevado acabo en cada scrip sus resultados analisis y conclusiones. Con la intencion de seguir un orden las variables trabajadas para el desarrollo de este grabajo, esta dividido en 4 scrip en
 
 ##### Cargar paquetes:
 
