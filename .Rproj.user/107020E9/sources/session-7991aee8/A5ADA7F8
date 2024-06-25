@@ -1,12 +1,12 @@
 {
-    "id": "462AF980",
+    "id": "A5ADA7F8",
     "path": "~/GitHub/Practico-1/Cuarto html.qmd",
     "project_path": "Cuarto html.qmd",
     "type": "quarto_markdown",
-    "hash": "195871710",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1719325611923.0,
+    "created": 1719340087913.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
@@ -17,7 +17,7 @@
         "docOutlineVisible": "1",
         "cursorPosition": "11,0",
         "scrollLine": "0",
-        "rmdVisualModeLocation": "2:0",
+        "rmdVisualModeLocation": "11136:4555.5556640625",
         "rmdVisualCollapsedChunks": ""
     },
     "folds": "",
@@ -25,7 +25,7 @@
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1719338165520,
+    "last_content_update": 1719340841481,
     "read_only": false,
     "read_only_alternatives": []
 }

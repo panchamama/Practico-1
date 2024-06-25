@@ -1,0 +1,109 @@
+---
+title: "Participacion Mercado Laboral"
+author: "Francisca Apablaza"
+format:
+  revealjs: 
+    theme: moon
+editor: visual
+---
+
+## Introduccion
+
+La economía de un país es fundamental para su desarrollo y crecimiento. En Chile, la participación laboral es un tema recurrente en discursos políticos y discusiones económicas. Los políticos suelen utilizar indicadores como el índice de desempleo y la tasa de participación laboral para demostrar que tan bien o mal prospera y se encuentra la estabilidad económica del país. Es por esto que resulta de suma importancia analizar y entender los factores que influyen en la participación laboral de las personas en Chile.
+
+## Objetivo
+
+En este estudio, me enfocare en identificar y analizar los elementos que pueden afectar la participación laboral, desde la educación y la formación laboral hasta las condiciones laborales y la estructura económica del país. Al entender mejor estos factores, podemos desarrollar estrategias más efectivas para fomentar la integración laboral y mejorar las condiciones de trabajo en Chile.
+
+# Variables trabajadas
+
+::: columns
+::: {.column width="40%"}
+-   Sexo
+
+-   Edad
+
+-   Tiene trabajo formal
+
+-   Tiene trabajo informal
+
+-   Porque no busco trabajo
+
+-   Horas trabajdas
+:::
+
+::: {.column width="60%"}
+-   Que tipo de permanencia tiene en al trabjo
+
+-   Tipo de contrato de trabajo
+
+-   Jornada laboral
+
+-   Horario laboral
+
+-   Sueldo
+
+-   Pais de nacionalidad
+
+-   Pertenece a algun pueblo originario
+:::
+:::
+
+# Resultados
+
+![](3. output/1.jpg){fig-align="center"}
+
+## Asociacion de variables
+
+::: columns
+::: {.column width="40%"}
+![](3. output/tab1.png){fig-align="center"}
+:::
+
+::: {.column width="60%"}
+![](3. output/tab2.png){fig-align="center"}
+:::
+:::
+
+## Asociacion entre variables
+
+::: columns
+::: {.column width="40%"}
+![](3. output/tab4.png){fig-align="center"}
+:::
+
+::: {.column width="60%"}
+![](3. output/tab5.png){fig-align="center"}
+:::
+:::
+
+## Correlación entre varaibles
+![](3. output/tab6.png){fig-align="center"}
+
+## Correlacion entre variables
+![](3. output/cor1.png){fig-align="center"}
+
+## Construccion de la escala
+
+::: columns
+::: {.column width="40%"}
+El objetivo de la construccion de la escala es medir la participacion en el mercado lavoral, para eso las variables seleccionadas permitian evaluar el acceso al mercado laboral, como tambien que tan estable era su estancia ahí.
+:::
+
+::: {.column width="60%"}
+![](3. output/escala.png){fig-align="center"}
+:::
+:::
+
+###
+
+
+
+
+## Modelos de regresion
+
+
+
+# ¿Que hay que corregir?
+
+Debodo a la inconsistencia de los resultados abria que volver hacer una revision tanto de las variables trabajadas como tambien de la correlacion que existe entre ellas. Sin embargo este trabajo sirvio como un primer acercamiento tanto a un fenomeno social.
