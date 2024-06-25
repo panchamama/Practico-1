@@ -3,9 +3,9 @@
     "path": "~/GitHub/Practico-1/Participacion en el mercado laboral.qmd",
     "project_path": "Participacion en el mercado laboral.qmd",
     "type": "quarto_markdown",
-    "hash": "3660619291",
+    "hash": "2013407603",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1719266350320.0,
     "source_on_save": false,
     "relative_order": 2,
@@ -17,16 +17,16 @@
         "Source": "Source",
         "docOutlineVisible": "1",
         "rmdVisualCollapsedChunks": "",
-        "cursorPosition": "13,0",
+        "cursorPosition": "1,22",
         "scrollLine": "0",
-        "rmdVisualModeLocation": "119:34.66666793823242"
+        "rmdVisualModeLocation": "419:181.3333282470703"
     },
     "folds": "",
-    "lastKnownWriteTime": 1719268121,
+    "lastKnownWriteTime": 1719329384,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1719268121619,
+    "last_content_update": 1719329384639,
     "read_only": false,
     "read_only_alternatives": []
 }
