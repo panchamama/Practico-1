@@ -1,0 +1,420 @@
+---
+title: "Trabajo"
+author: "Francisca Apablaza"
+format: html
+editor: visual
+bibliography: Participacion en el mercado laboral.bib
+link-citations: true
+---
+
+# Participación en el mercado laboral
+
+## Introducción
+
+La economía de un país es fundamental para su desarrollo y crecimiento. En Chile, la participación laboral es un tema recurrente en discursos políticos y discusiones económicas. Los políticos suelen utilizar indicadores como el índice de desempleo y la tasa de participación laboral para demostrar que tan bien o mal prospera y se encuentra la estabilidad económica del país. Es por esto que resulta de suma importancia analizar y entender los factores que influyen en la participación laboral de las personas en Chile. En este estudio, me enfocare en identificar y analizar los elementos que pueden afectar la participación laboral, desde la educación y la formación laboral hasta las condiciones laborales y la estructura económica del país. Al entender mejor estos factores, podemos desarrollar estrategias más efectivas para fomentar la integración laboral y mejorar las condiciones de trabajo en Chile. [@neffaTrabajoCrisisModelos2020]
+
+Para poder adentrarme en el análisis del mercado laboral chileno, es importante primero realizar una contextualización histórica, sobre que sistema económico tenemos en Chile. Desde la década de 1970, en dictadura se impuso el modelo neoliberal en el país. Como nos dice Carrasco “Es un proceso que tiene antecedentes en las ideas del liberalismo económico, donde destaca la figura de Adam Smith y sus teorías sobre el mercado y el libre comercio, el laissez faire, la libertad e interés individual, la necesidad de la propiedad privada, el rol prescindente del Estado en las dinámicas económicas, entre otras que son la base de la economía clásica”. Esto nos ayuda a comprender bajo que ideas se ha desarrollado el mercado laboral chileno.
+
+El neoliberalismo ha traído tanto dificultades como desigualdades bajo un discurso de progreso económico, hay ciertos puntos que nos puedes develar que factores influyen en la participación dentro del mercado laboral, algunos son factores como el género, el nivel educación, las condiciones laborales, etc. Estos algunos de desafíos a los que nos enfrentamos para mejorar, la participación y la calidad del mercado laboral.
+
+Para realizar este análisis estaré trabajando con la Encuesta de Caracterización social (CASEN), del año 2022, la cual es una encuesta hacia los hogares realizado por el Ministerio de Desarrollo Social y Familia. La cual recodifique antes de los resultados que se presentaran en este trabajao, ya que la base de datos es muy pesada, filtre por solo las variables que necesitare trabajar a lo largo de esta investigacion.
+
+## Trabajo en Rstudio
+
+A lo largo de esta investigación, he trabajado con cuatro scripts con el objetivo de mantener el orden y para llevar a cabo distintos análisis de las variables. A partir de aquí, presentaré el desarrollo realizado en cada uno de estos scripts, junto con sus resultados, análisis y conclusiones. Todo con el objetivo de realizar un análisis de la participación en el mercado laboral en Chile.
+
+#### Cargar paquetes:
+
+```{r}
+pacman::p_load(sjlabelled, dplyr, stargazer, sjmisc, summarytools, kableExtra, sjPlot, corrplot, sessioninfo, ggplot2)
+```
+
+#### Cargar base de datos:
+
+```{r}
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
+```
+
+Recodificamos la base de datos por edad entre 15 hasta 65 años, ya que considero este grupo etario como el optimo para participar dentro del mercado laboral.
+
+```{r}
+casen_rec <- casen_rec %>% dplyr:: filter(edad >= 18 & edad <= 65)
+```
+
+```{r}
+dim(casen_rec)
+names(casen_rec)
+```
+
+Vemos los primeros descriptivos que nos ofrece la base datos
+
+```{r}
+sjmisc::descr(casen_rec,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+      kable(.,"markdown")
+```
+
+### Analisis de variables
+
+Lo primero que realizare es una asociación entre algunas variable y cruzadas con la variable de sexo esto para tener una primera visualización de la participación laboral
+
+a\) Realizo trabajo formal
+
+```{r}
+sjt.xtab(casen_rec$trabajo, casen_rec$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Esta primera tabla nos ofrece lo siguiente, la cantidad de personas que realizan trabajo formal, son más hombres que mujeres, siendo los hombres un 71.4%, mientras que las mujeres son el 48.6%. Cuando vemos quienes no hay realizado un trabajo formal vemos que son la mayoría mujeres siendo un 51.4% mientras que los hombres son un 28.6%, esto es un primer acercamiento a las brechas de género que experimenta el mercado laboral.
+
+b\) Realizo algun trabajo de manera informal
+
+```{r}
+sjt.xtab(casen_rec$trabajo_informal, casen_rec$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Ahora bien, la pregunta iba a si realizo algún trabajo por salario sin necesidad que este fuera formal. Los resultados no son tan demostrativos ya que la mayoría tanto hombres como mujeres no han trabajado de manera informal y nos quedamos con muy pocos casos de quienes si lo han realizado. Sim embargo quienes si lo han hecho son más mujeres siendo 987, mientras que los hombres son 736 personas.
+
+c\) Cuantas horas trabajo a la semana
+
+```{r}
+sjt.xtab(casen_rec$horas_trabajo, casen_rec$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+En la siguiente tabla se pregunta por la cantidad de horas que ha trabajado una persona. De lo cual se observa lo siguiente: Las horas promedio de trabajo son más mujeres (17.7%) que hombres (9.7%), que lo realizan, sin embargo, cuando analizamos trabajar horas inferiores al promedio y trabajar superiores al promedio, vemos que en el primer punto son más mujeres quienes traban menos horas habituales al promedio, y a su inversa cuando vemos quienes son los que más trabajan sobre el promedio son los hombres. Esto quiere decir que las mujeres trabajen menos, no necesariamente.
+
+d\) Razonas por la cual no busco trabajo
+
+```{r}
+sjt.xtab(casen_rec$busqueda_trabajo, casen_rec$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Esta tabla es bien interesante, ya que responden las personas que no trabajan, a porque no han podido o querido buscar un trabajo, dentro de las opciones agrupe todas las que referían al cuidado de algún familiar, niño, etc. y cuidado doméstico, toda cualquier otra razón la agrupe en otro motivo. El resultado de esto se ve en la tabla, de la cual podemos debelar que, si nos fijamos en la opción de razones de cuidado, vemos una amplia diferencia entre hombres y mujeres, donde solo un 6.4% de hombres no buscaron trabajo por razones de cuidado, mientras que las mujeres fueron un 51.6%, observamos una amplía diferencia. Esta tabla nos podría acercar a una interpretación de las tablas anteriores talvez las mujeres trabajan menos horas formales, pero se encuentran realizando otras labores que no siempre se cuentan como trabajo.
+
+e\) Sueldo
+
+```{r}
+sjt.xtab(casen_rec$sueldo, casen_rec$sexo,
+         show.col.prc=TRUE,
+         show.summary=FALSE,
+         encoding = "UTF-8"
+)
+```
+
+Por último, temeos esta taba sobre el sueldo mensual de una persona, cruzada con la variable sexo. Obteniendo los siguiente: Si vemos las personas que ganan menos del salario mínimo, vemos que son más mujeres quienes se encuentran ahí, es más si vemos el grupo de las mujeres, la mayoría está concentrada en este punto. Mientras que los hombres están más o menos igualmente divididos entre menos del salario mínimo y el salario promedio. Ahora bien, si nos situamos en el salario promedio las mujeres son 32.2% mientras que los hombres son el 42.9% una diferencia del 10%. Y por último cuando vemos quienes ganan sobre el salario mínimo vemos que son más hombre siendo 14.2% y las mujeres un 10.7%.
+
+Esta tabla es muy rica en informacion, sin embargo no podemos afirmar en su totalidad que las mujeres ganan menos que los hombres, ya que analizamos solo una muestra,pero, nos ayuda a plantear otras interrogantes y debelar desigualdades salariales que hay que estudiar.
+
+### Correlación entre variables
+
+Ahora limpiamos el area de trabajo para cargar los datos que nos permitiran realizar la correlación.
+
+```{r}
+rm(list = ls()) #limpiar area de trabajo
+
+pacman::p_load(dplyr, # Manipulacion datos
+               sjmisc, # Descriptivos
+               sjPlot, # Tablas
+               sjlabelled, #etiquetas
+               kableExtra, #Tablas
+               GGally, # Correlaciones
+               corrplot) # Correlaciones
+
+options(scipen = 999) # para desactivar notacion cientifica
+```
+
+Cargamos nuevamente la base de datos y recodificamos por edad entre 15 y 65 años
+
+```{r}
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_rec.rdata"))
+casen_rec <- casen_rec %>% dplyr:: filter(edad >= 18 & edad <= 65)
+dim(casen_rec)
+```
+
+Y ahora recodificamos un par de variables que anteriormente estábamos analizando como categóricas, pero, es necesario transformarlas en numéricas. Esto es realizado con el objetivo de poder realizar la correlación en de estas variables, para posteriormente realizar la escala.
+
+```{r}
+frq(casen_rec$trabajo) # Recodificacion numerica
+casen_rec$trabajo <- recode(casen_rec$trabajo, "No trabaja" = 0, "Trabaja" = 1)
+summary(casen_rec$trabajo) #Confirmacion
+
+frq(casen_rec$trabajo_informal) # Recodificacion numerica
+casen_rec$trabajo_informal <- recode(casen_rec$trabajo_informal, "No trabaja" = 0, "Trabaja" = 1)
+summary(casen_rec$trabajo_informal) #Confirmacion
+
+frq(casen_rec$horas_trabajo) # Recodificacion numerica
+casen_rec$horas_trabajo <- recode(casen_rec$horas_trabajo, "Inf promedio" = 0, "Promedio" = 0.5, "Sup promedio" = 1)
+summary(casen_rec$horas_trabajo) #Confirmacion
+
+frq(casen_rec$sueldo) # Recodificacion numerica
+casen_rec$sueldo<- recode(casen_rec$sueldo, "Menos del salario minimo" = 0, "Salario promedio" = 0.5, "Salario sobre el promedio" = 1)
+summary(casen_rec$sueldo) #Confirmacion
+```
+
+Para la correlacio}ón realice un objeto con solo las variables necesarias para esta correlación
+
+```{r}
+casen_correlacion <- casen_rec %>% select(trabajo_informal, # Trabajo informal
+                                          horas_trabajo, # Horas trabajadas
+                                          tipo_trabajo, # Su trabajo es de tipo
+                                          contrato, # Tipo de contrato
+                                          jornada_labora, #Jornada laboral
+                                          horario_trabajo, #Tipo de horario
+                                          sueldo) # Sueldo
+```
+
+#### Casos perdidos (NA´s)
+
+Es importante trabajar los casos perdidos (NA´s), para que no alteren la correlación entre las variables, para esto he decidido realizar la filtración de los casos perdidos por "Listwise delectio" ya que a pesar de lo contrapuducente, es que realice ambas pruebas de eliminación de casos perdidos "Listwise" y "Pairwise", y no había mucha diferencia en los resultados, por ende elegí la primera ya que era la que me estaba dando mejores resultados., para llevarlo a cabo el procedimiento es el siguiente:
+
+-   Primero respaldar la base de datos, en este caso el objeto para la correlacion
+
+```{r}
+df <- casen_correlacion
+dim(casen_correlacion)
+```
+
+-   Despues contamos los NA´s
+
+```{r}
+sum(is.na(casen_correlacion))
+```
+
+-   Vemos en que variables se encuentran estos NA´s
+
+```{r}
+colSums(is.na(casen_correlacion))
+```
+
+-   Y finalmente las eliminamos
+
+```{r}
+casen_correlacion <- na.omit(casen_correlacion)
+dim(casen_correlacion)
+```
+
+### Contruccion de matriz de correlacion
+
+Acontinuacion una vez ya eliminados los NA´s, realizó la matriz de correlacion de las variables, para ver que tan correlacionadas estan unas variables con otras.
+
+```{r}
+M <- cor(casen_correlacion, use = "complete.obs") # Matriz de correlacion
+M
+```
+
+```{r}
+sjPlot::tab_corr(M, # Visualizacion
+                 triangle = "lower")
+```
+
+```{r}
+corrplot.mixed(M)
+```
+
+La matriz de correlacion nos dice que tan correlacinada se esntunetran las variables
+
+### Alfa de Cronbach
+
+```{r}
+# Asegúrate de tener el paquete psych instalado y cargado
+if (!requireNamespace("psych", quietly = TRUE)) {
+  install.packages("psych")
+}
+library(psych)
+
+# Calcular el alpha de Cronbach con la opción check.keys=TRUE
+alpha_result <- psych::alpha(casen_correlacion, check.keys=TRUE)
+
+# Ver los resultados
+print(alpha_result)
+
+# Ver cuáles variables fueron invertidas
+print(alpha_result$keys)
+```
+
+Desarrollar esto en profuncidad, recordar que tuve que invertir las variables pero debo justificar por que
+
+### Contruccion de la escala
+
+```{r}
+casen_rec <- casen_rec %>% 
+  rowwise() %>% 
+  mutate(participacion_mercado_laboral = sum(trabajo,trabajo_informal,horas_trabajo,tipo_trabajo,contrato,jornada_labora,horario_trabajo,sueldo))
+summary(casen_rec$participacion_mercado_laboral)
+```
+
+ddddddddddddddddddd
+
+```{r}
+frq(casen_rec$participacion_mercado_laboral)
+```
+
+ddddddddddddddddddd
+
+Grafico
+
+```{r}
+ggplot(casen_rec, aes(x = participacion_mercado_laboral)) +
+  geom_histogram(binwidth=0.6, colour="black", fill="yellow") +
+  theme_bw() +
+  xlab("Participacion en el mercado laboral") +
+  ylab("Cantidad")
+```
+
+blablablablabl
+
+Antes de continuar es necesario guardar la base datos, para trabajar con las variables para la regresion con escala
+
+### Guardar la nueva vase de datos (casen_reg)
+
+```{r}
+casen_reg <- casen_rec %>% select(participacion_mercado_laboral,
+                                  sexo,
+                                  educ,
+                                  nacionalidad,
+                                  pueblo_originario)
+
+save(casen_reg,file = "1. input/casen_reg.rdata")
+```
+
+## Regresion
+
+Como ahora trabajare con otra base de datos es necesario limpiar el area de trabajo, cargar los paquetes necesarios, y asi continuar
+
+```{r}
+rm(list = ls()) #limpiar area de trabajo
+
+pacman::p_load(dplyr,
+               car, 
+               sjmisc, 
+               sjPlot, 
+               sjlabelled, 
+               stargazer, 
+               kableExtra, 
+               corrplot, 
+               texreg, 
+               ggplot2, 
+               ggpubr,
+               summarytools, # Tablas
+               sessioninfo, # Información de la sesión de trabajo
+               fastDummies, # Generar regresión
+               ggeffects) # Gráfico de valores predichos
+```
+
+Cargamos esta nueva base da datos recodificada con lo necesario para realizar la regresion
+
+```{r}
+load(url("https://github.com/panchamama/Practico-1/raw/main/1.%20input/casen_reg.rdata"))
+dim(casen_reg)
+```
+
+```{r}
+casen_reg <- casen_reg %>% select(participacion_mercado_laboral, sexo, educ, nacionalidad, pueblo_originario)
+```
+
+ffffffffffff
+
+```{r}
+casen_reg <- data.frame(lapply(casen_reg, function(x) {
+  if (is.factor(x)) as.numeric(as.factor(x)) else x
+}))
+```
+
+```{r}
+# Seleccionar solo las columnas numéricas
+casen_reg_numeric <- casen_reg[sapply(casen_reg, is.numeric)]
+```
+
+```{r}
+# Calcular la matriz de correlación utilizando solo las observaciones completas
+M <- cor(casen_reg_numeric, use = "complete.obs")
+print(M)
+
+
+M <- cor(casen_reg, use = "complete.obs") # Usar solo casos con observaciones completas
+diag(M) = NA # Elimina la diagonal (correlaciones absolutas de cada variable consigmo misma)
+rownames(M) <- c("A. Participacion en el mescado laboral",
+                 "B. Sexo",
+                 "C. Educación",
+                 "D. Nacionalidad",
+                 "E. Pertenece a pueblo originario")
+colnames(M) <-c("(A)", "(B)","(C)", "(D)", "(E)")
+
+corrplot::corrplot(M,
+                   method = "color", # Cambia los círculos por color completo de cada cuadrante
+                   addCoef.col = "#000390", # Color de los coeficientes
+                   type = "upper", # Deja solo las correlaciones de arriba
+                   tl.col = "black", # COlor letras, rojo por defecto
+                   na.label = "-")
+
+```
+
+nos aseguramos ahora que todas las variables sean categoricas
+
+```{r}
+casen_reg$educ <- as_factor(casen_reg$educ)
+casen_reg$sexo <- as_factor(casen_reg$sexo)
+casen_reg$nacionalidad <- as_factor(casen_reg$nacionalidad)
+casen_reg$pueblo_originario <- as_factor(casen_reg$pueblo_originario)
+```
+
+y ahora realiizamos la regresion
+
+### Regrasion 1
+
+```{r}
+casen_reg <- na.omit(casen_reg)
+reg1 <- lm(participacion_mercado_laboral ~ 1, data=casen_reg)
+stargazer(reg1, type="text")
+```
+
+### Regresione lineal multiple
+
+El objetivo de esto es realizar un analisis entre los distinros modelos, para evaluar la participacion en el mercado laboral, y asi ver ver que variables afectan esta participacion.
+
+```{r}
+reg2<- lm(participacion_mercado_laboral ~ sexo, data = casen_reg)
+reg3 <- lm(participacion_mercado_laboral ~ sexo + educ, data = casen_reg)
+reg4 <- lm(participacion_mercado_laboral ~ sexo + educ + nacionalidad, data = casen_reg)
+reg5 <- lm(participacion_mercado_laboral ~ sexo + educ + nacionalidad + pueblo_originario, data = casen_reg)
+```
+
+```{r}
+knitreg(list(reg2, reg3, reg4, reg5), 
+        custom.model.names = c("Modelo 1",
+                               "Modelo 2",
+                               "Modelo 3",
+                               "Modelo 4"),
+        custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
+        custom.coef.names = c("Intercepto", 
+                              "Mujer <br> <i>(Ref. Hombre)</i>",
+                              "Educacion básica <br> <i>(Ref. Sin estudios)</i>",
+                              "Educación media", 
+                              "Educación superior",
+                              "Postgrados",
+                              "Nacionalidad extranjera <br> <i>(Ref. Nacionalidad chilena)</i>",
+                              "Pertenece puablo originario <br> <i>(Ref. No pertenece pueblo originario)</i>"),
+        caption = "Participacion en el mercado laboral",
+        caption.above = TRUE)
+```
+
+sssssssssssssssssssss
+
+```{r}
+
+```

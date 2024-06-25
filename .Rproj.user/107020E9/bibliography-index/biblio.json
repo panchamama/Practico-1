@@ -1,4 +1,54 @@
 {
-    "sources": [],
+    "sources": [
+        {
+            "author": [
+                {
+                    "family": "Espinosa",
+                    "given": "Malva"
+                }
+            ],
+            "container-title": "Direccion del trabajo",
+            "id": "espinosaChileRelacionesLaborales",
+            "language": "es-ES",
+            "title": "Chile: Relaciones Laborales para el Siglo XXI",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.2307/j.ctv1gm02dh",
+            "ISBN": "978-987-722-598-3",
+            "URL": "https://www.jstor.org/stable/10.2307/j.ctv1gm02dh",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        6,
+                        22
+                    ]
+                ]
+            },
+            "editor": [
+                {
+                    "family": "Neffa",
+                    "given": "Julio Cesar"
+                },
+                {
+                    "family": "De La Garza Toledo",
+                    "given": "Enrique"
+                }
+            ],
+            "id": "neffaTrabajoCrisisModelos2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        1
+                    ]
+                ]
+            },
+            "publisher": "Consejo Latinoamericano de Ciencias Sociales. CLACSO",
+            "title": "Trabajo y crisis de los modelos productivos en América Latina",
+            "type": "book"
+        }
+    ],
     "project_biblios": []
 }
