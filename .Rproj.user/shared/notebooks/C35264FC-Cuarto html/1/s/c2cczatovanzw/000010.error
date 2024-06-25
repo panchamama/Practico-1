@@ -1,1 +1,0 @@
-{"frames":[],"message":"Error in recode(casen_rec$trabajo, `No trabaja` = 0, Trabaja = 1) : \n  unused arguments (`No trabaja` = 0, Trabaja = 1)\n"}

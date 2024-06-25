@@ -12,9 +12,13 @@ link-citations: true
 ## Introduccion
 
 La economía de un país es fundamental para su desarrollo y crecimiento. En Chile, la participación laboral es un tema recurrente en discursos políticos y discusiones económicas. Los políticos suelen utilizar indicadores como el índice de desempleo y la tasa de participación laboral para demostrar que tan bien o mal prospera y se encuentra la estabilidad económica del país. Es por esto que resulta de suma importancia analizar y entender los factores que influyen en la participación laboral de las personas en Chile. 
+
 ## Objetivo
 
-En este estudio, me enfocare en identificar y analizar los elementos que pueden afectar la participación laboral, desde la educación y la formación laboral hasta las condiciones laborales y la estructura económica del país. Al entender mejor estos factores, podemos desarrollar estrategias más efectivas para fomentar la integración laboral y mejorar las condiciones de trabajo en Chile.
+En este estudio, me enfocare en identificar y analizar los elementos que pueden afectar la participación laboral, desde la educación, el genero, nacionalidad, hasta las condiciones laborales. Al entender mejor estos factores, podemos desarrollar estrategias más efectivas para fomentar la integración laboral y mejorar las condiciones de trabajo en Chile.
+
+## Base de datos
+Para poder realizar el analisis trabaje con la base de datos de la Encuesta de Caracterizacion Socioeconomica Nacional (CASEN) del año 2022
 
 # Variables trabajadas
 
@@ -106,7 +110,7 @@ como tambien que tan estable era su estancia ahí.
 
 # ¿Que hay que corregir?
 
-Debido a la inconsistencia de los resultados abría que volver hacer una revisión tanto de las variables trabajadas como también de la correlación que existe entre ellas. Sin embargo, este trabajo sirvió como un primer acercamiento tanto a un fenómeno social.
+Debido a la inconsistencia de los resultados abría que volver hacer una revisión tanto de las variables trabajadas como también de la correlación que existe entre ellas. Sin embargo, este trabajo sirvió como un primer acercamiento tanto a un fenómeno social, y tambien un primer procesamiento de las variables.
 
 # Muchas gracias por su atencion 
 ![](3. output/piolin.png){fig-align="center"}
